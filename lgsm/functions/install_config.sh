@@ -98,6 +98,11 @@ fn_dstconfig(){
 	fn_script_log_info "changing server password."
 	sed -i "s/\"<serverpass>\"/\"${serverpass}\"/g" "${clustercfgfullpath}"
 	
+	echo "randomizing cluster key."
+	fn_script_log_info "randomizing cluster key."
+	clusterkey=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+	sed -i "s/\"<clusterkey>\"/\"${clusterkey}\"/g" "${clustercfgfullpath}"
+	
 	# server.ini
 	svrcfg="${servercfg}"
 	if [ "${multilevel}" == "true" ]; then
