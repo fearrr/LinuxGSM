@@ -9,9 +9,24 @@ if [ -f ".dev-debug" ]; then
 	set -x
 fi
 
-version="130516"
+version="290816" # WIP
 
 #### Variables ####
+
+# Installation Variables (move to installer?)
+# multilevel: will this server have multiple levels/shards?
+# shard: name of the shard (It should be "Master" for the main/master server)
+# slave: Is it a server that connects to a master server?
+# visit the following link for more information
+# https://github.com/GameServerManagers/LinuxGSM/wiki/Don't-Starve-Together
+multilevel="false"
+shard="Master" 
+slave="false"
+
+# Force shard to Master if it is a single shard server
+if [ "${multilevel}" != "true" ] && [ "${shard}" != "Master" ]; then
+	shard="Master"
+fi
 
 # Notification Alerts
 # (on|off)
@@ -31,14 +46,21 @@ steampass=""
 
 # Start Variables
 ip="0.0.0.0"
+tick="15"
 updateonstart="off"
 
-# Overworld: -conf_dir DST_Overworld
-# Cave: -conf_dir DST_Cave
-#http://dont-starve-game.wikia.com/wiki/Guides/Don%E2%80%99t_Starve_Together_Dedicated_Servers
+# if caves="true" server, increase all ports for each shard
+port="11000"
+steamauthenticationport="8768"
+steammasterserverport="27018"
+
+# You shouldn't probably touch that
+persistentstorageroot="${HOME}/.klei"
+confdir="DoNotStarveTogether"
+cluster="MyDediServer"
+
 fn_parms(){
-parms="-console -cluster MyDediServer -shard Master"
-# -console -cluster MyDediServer -shard Master
+parms="-persistent_storage_root ${persistentstorageroot} -conf_dir ${confdir} -cluster ${cluster} -shard ${shard} -bind_ip ${ip} -port ${port} -steam_master_server_port ${steammasterserverport} -steam_authentication_port ${steamauthenticationport} -tick ${tick}"
 }
 
 #### Advanced Variables ####
@@ -48,7 +70,7 @@ parms="-console -cluster MyDediServer -shard Master"
 # from a different repo and/or branch.
 githubuser="GameServerManagers"
 githubrepo="LinuxGSM"
-githubbranch="master"
+githubbranch="dstserver"
 
 # Steam
 appid="343050"
@@ -69,15 +91,19 @@ filesdir="${rootdir}/serverfiles"
 systemdir="${filesdir}"
 executabledir="${filesdir}/bin"
 executable="./dontstarve_dedicated_server_nullrenderer"
-servercfg="settings.ini"
-servercfgdir="${HOME}/.klei/DoNotStarveTogether"
+clustercfg="cluster.ini"
+servercfg="server.ini"
+clustercfgdir="${persistentstorageroot}/${confdir}/${cluster}"
+servercfgdir="${clustercfgdir}/${shard}"
+clustercfgfullpath="${clustercfgdir}/${clustercfg}"
 servercfgfullpath="${servercfgdir}/${servercfg}"
-servercfgdefault="${servercfgdir}/lgsm-default.ini"
+clustercfgdefault="${clustercfgdir}/lgsm-default.cluster.ini"
+servercfgdefault="${clustercfgdir}/lgsm-default.server.ini"
 backupdir="${rootdir}/backups"
 
 # Logging
 logdays="7"
-gamelogdir="${systemdir}/logs"
+gamelogdir="${clustercfgdir}/${shard}"
 scriptlogdir="${rootdir}/log/script"
 consolelogdir="${rootdir}/log/console"
 consolelogging="on"
