@@ -92,16 +92,16 @@ fn_dstconfig(){
 	
 	echo "changing server name."
 	fn_script_log_info "changing server name."
-	sed -i "s/\"<servername>\"/\"${servername}\"/g" "${clustercfgfullpath}"
+	sed -i "s/<servername>/${servername}/g" "${clustercfgfullpath}"
 	
 	echo "changing server password."
 	fn_script_log_info "changing server password."
-	sed -i "s/\"<serverpass>\"/\"${serverpass}\"/g" "${clustercfgfullpath}"
+	sed -i "s/<serverpass>/${serverpass}/g" "${clustercfgfullpath}"
 	
 	echo "randomizing cluster key."
 	fn_script_log_info "randomizing cluster key."
 	clusterkey=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
-	sed -i "s/\"<clusterkey>\"/\"${clusterkey}\"/g" "${clustercfgfullpath}"
+	sed -i "s/<clusterkey>/${clusterkey}/g" "${clustercfgfullpath}"
 	
 	# server.ini
 	svrcfg="${servercfg}"
@@ -121,7 +121,7 @@ fn_dstconfig(){
 	
 	echo "changing shard name."
 	fn_script_log_info "changing shard name."
-	sed -i "s/\"<shard>\"/\"${shard}\"/g" "${servercfgfullpath}"
+	sed -i "s/<shard>/${shard}/g" "${servercfgfullpath}"
 
 	# worldgenoverride.lua
 	if [ "${cave}" == "true" ]; then
