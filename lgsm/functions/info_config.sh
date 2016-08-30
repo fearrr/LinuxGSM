@@ -43,28 +43,36 @@ fn_info_config_avalanche(){
 }
 
 fn_info_config_dontstarve(){
-	if [ ! -f "${servercfgfullpath}" ]; then
+	if [ ! -f "${clustercfgfullpath}" ]; then
 		servername="${unavailable}"
 		serverpassword="${unavailable}"
 		slots="${zero}"
 		gamemode="${unavailable}"
-		tickrate="${zero}"
-		port="${zero}"
+		# tickrate="${zero}"
+		
 	else
-		servername=$(grep "default_server_name = " "${servercfgfullpath}" | sed 's/default_server_name = //g')
-		serverpassword=$(grep "server_password = " "${servercfgfullpath}" | grep -v "#" | sed 's/server_password = //g')
-		slots=$(grep "max_players" "${servercfgfullpath}" | grep -v "#" | tr -cd '[:digit:]')
-		gamemode=$(grep "game_mode = " "${servercfgfullpath}" | grep -v "#" | sed 's/game_mode = //g')
-		tickrate=$(grep "tick_rate" "${servercfgfullpath}" | grep -v "#" | tr -cd '[:digit:]')
-		port=$(grep "server_port" "${servercfgfullpath}" | grep -v "#" | tr -cd '[:digit:]')
+		servername=$(grep "cluster_name = " "${clustercfgfullpath}" | grep -v "#" | sed 's/cluster_name = //g')
+		serverpassword=$(grep "cluster_password = " "${clustercfgfullpath}" | grep -v "#" | sed 's/cluster_password = //g')
+		slots=$(grep "max_players" "${clustercfgfullpath}" | grep -v "#" | tr -cd '[:digit:]')
+		gamemode=$(grep "game_mode = " "${clustercfgfullpath}" | grep -v "#" | sed 's/game_mode = //g')
+		# tickrate=$(grep "tick_rate" "${clustercfgfullpath}" | grep -v "#" | tr -cd '[:digit:]')
+		
 
 		# Not Set
 		servername=${servername:-"NOT SET"}
 		serverpassword=${serverpassword:-"NOT SET"}
-		slots=${slots:-"0"}
+		slots=${slots:-"NOT SET"}
 		gamemode=${gamemode:-"NOT SET"}
-		tickrate=${tickrate:-"0"}
-		port=${port:-"0"}
+		# tickrate=${tickrate:-"NOT SET"}
+	fi
+	
+	if [ ! -f "${servercfgfullpath}" ]; then
+		# port="${zero}"
+	else
+		# port=$(grep "server_port" "${servercfgfullpath}" | grep -v "#" | tr -cd '[:digit:]')
+		
+		# Not Set
+		# port=${port:-"NOT SET"}
 	fi
 }
 

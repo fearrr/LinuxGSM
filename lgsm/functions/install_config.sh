@@ -104,20 +104,9 @@ fn_dstconfig(){
 	sed -i "s/<clusterkey>/${clusterkey}/g" "${clustercfgfullpath}"
 	
 	# server.ini
-	svrcfg="${servercfg}"
-	if [ "${multilevel}" == "true" ]; then
-		if [ "${slave}" == "true" ]; then
-			svrcfg="lgsm-default.slave.ini"
-		else
-			svrcfg="lgsm-default.master.ini"
-		fi
-	elif
-		svrcfg="lgsm-default.server.ini"
-	fi
-
 	echo "creating ${servercfg} config file."
 	fn_script_log_info "creating ${servercfg} config file."
-	cp -v "${svrcfg}" "${servercfgfullpath}"
+	cp -v "${servercfgdefault}" "${servercfgfullpath}"
 	
 	echo "changing shard name."
 	fn_script_log_info "changing shard name."
@@ -382,17 +371,17 @@ elif [ "${gamename}" == "Day of Infamy" ]; then
 	sleep 1
 	fn_sourceconfig
 elif [ "${gamename}" == "Don't Starve Together" ]; then
-	cd "${persistentstorageroot}/${confdir}/${cluster}"
+	cd "${clustercfgdir}"
 	if [ "${multilevel}" == "true" ]; then
-		wget -N /dev/null ${githuburl}/DontStarveTogether/cfg/multi/lgsm-default.cluster.ini 2>&1 | grep -F HTTP | cut -c45- | uniq
+		wget ${githuburl}/DontStarveTogether/cfg/multi/lgsm-default.cluster.ini 2>&1 | grep -F HTTP | cut -c45- | uniq
 		if [ "${slave}" == "true" ]; then
-			wget -N /dev/null ${githuburl}/DontStarveTogether/cfg/multi/lgsm-default.slave.ini 2>&1 | grep -F HTTP | cut -c45- | uniq
+			wget -O "${servercfgdefault}" ${githuburl}/DontStarveTogether/cfg/multi/lgsm-default.slave.ini 2>&1 | grep -F HTTP | cut -c45- | uniq
 		else
-			wget -N /dev/null ${githuburl}/DontStarveTogether/cfg/multi/lgsm-default.master.ini 2>&1 | grep -F HTTP | cut -c45- | uniq
+			wget -O "${servercfgdefault}" ${githuburl}/DontStarveTogether/cfg/multi/lgsm-default.master.ini 2>&1 | grep -F HTTP | cut -c45- | uniq
 		fi
 	elif
-		wget -N /dev/null ${githuburl}/DontStarveTogether/cfg/single/lgsm-default.cluster.ini 2>&1 | grep -F HTTP | cut -c45- | uniq
-		wget -N /dev/null ${githuburl}/DontStarveTogether/cfg/single/lgsm-default.server.ini 2>&1 | grep -F HTTP | cut -c45- | uniq
+		wget ${githuburl}/DontStarveTogether/cfg/single/lgsm-default.cluster.ini 2>&1 | grep -F HTTP | cut -c45- | uniq
+		wget ${githuburl}/DontStarveTogether/cfg/single/lgsm-default.server.ini 2>&1 | grep -F HTTP | cut -c45- | uniq
 	fi
 	sleep 1
 	fn_dstconfig

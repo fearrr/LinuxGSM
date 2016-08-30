@@ -147,6 +147,16 @@ fn_details_gameserver(){
 		if [ -n "${gameworld}" ]; then
 			echo -e "${blue}Game world:\t${default}${gameworld}"
 		fi
+		
+		# Cluster (Don't Starve Together)
+		if [ -n "${cluster}" ]; then
+			echo -e "${blue}Cluster:\t${default}${cluster}"
+		fi
+		
+		# Shard (Don't Starve Together)
+		if [ -n "${shard}" ]; then
+			echo -e "${blue}Shard:\t${default}${shard}"
+		fi
 
 		# Tick rate
 		if [ -n "${tickrate}" ]; then
@@ -337,6 +347,7 @@ fn_details_dontstarve(){
 	{
 		echo -e "DESCRIPTION\tDIRECTION\tPORT\tPROTOCOL"
 		echo -e "> Game\tINBOUND\t${port}\tudp"
+		# ToDo
 	} | column -s $'\t' -t
 }
 

@@ -23,11 +23,6 @@ multilevel="false"
 shard="Master" 
 slave="false"
 
-# Force shard to Master if it is a single shard server
-if [ "${multilevel}" != "true" ] && [ "${shard}" != "Master" ]; then
-	shard="Master"
-fi
-
 # Notification Alerts
 # (on|off)
 
@@ -45,22 +40,26 @@ steamuser="anonymous"
 steampass=""
 
 # Start Variables
+# ports have to be increased for each shard
 ip="0.0.0.0"
-tick="15"
-updateonstart="off"
-
-# if caves="true" server, increase all ports for each shard
 port="11000"
 steamauthenticationport="8768"
 steammasterserverport="27018"
+tickrate="15"
+updateonstart="off"
 
 # You shouldn't probably touch that
 persistentstorageroot="${HOME}/.klei"
 confdir="DoNotStarveTogether"
 cluster="MyDediServer"
 
+# Force shard to Master if it is a single shard server
+if [ "${multilevel}" != "true" ] && [ "${shard}" != "Master" ]; then
+	shard="Master"
+fi
+
 fn_parms(){
-parms="-persistent_storage_root ${persistentstorageroot} -conf_dir ${confdir} -cluster ${cluster} -shard ${shard} -bind_ip ${ip} -port ${port} -steam_master_server_port ${steammasterserverport} -steam_authentication_port ${steamauthenticationport} -tick ${tick}"
+parms="-persistent_storage_root ${persistentstorageroot} -conf_dir ${confdir} -cluster ${cluster} -shard ${shard} -bind_ip ${ip} -port ${port} -steam_master_server_port ${steammasterserverport} -steam_authentication_port ${steamauthenticationport} -tick ${tickrate}"
 }
 
 #### Advanced Variables ####
