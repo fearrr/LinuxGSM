@@ -66,14 +66,14 @@ fn_info_config_dontstarve(){
 		# tickrate=${tickrate:-"NOT SET"}
 	fi
 	
-	if [ ! -f "${servercfgfullpath}" ]; then
+	# if [ ! -f "${servercfgfullpath}" ]; then
 		# port="${zero}"
-	else
+	# else
 		# port=$(grep "server_port" "${servercfgfullpath}" | grep -v "#" | tr -cd '[:digit:]')
 		
-		# Not Set
+		# # Not Set
 		# port=${port:-"NOT SET"}
-	fi
+	# fi
 }
 
 fn_info_config_minecraft(){

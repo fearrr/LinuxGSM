@@ -379,7 +379,7 @@ elif [ "${gamename}" == "Don't Starve Together" ]; then
 		else
 			wget -O "${servercfgdefault}" ${githuburl}/DontStarveTogether/cfg/multi/lgsm-default.master.ini 2>&1 | grep -F HTTP | cut -c45- | uniq
 		fi
-	elif
+	else
 		wget ${githuburl}/DontStarveTogether/cfg/single/lgsm-default.cluster.ini 2>&1 | grep -F HTTP | cut -c45- | uniq
 		wget ${githuburl}/DontStarveTogether/cfg/single/lgsm-default.server.ini 2>&1 | grep -F HTTP | cut -c45- | uniq
 	fi
