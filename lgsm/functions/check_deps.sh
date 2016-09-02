@@ -166,8 +166,8 @@ if [ -n "$(command -v dpkg-query)" ]; then
 	# 7 Days to Die
 	elif [ "${gamename}" ==  "7 Days To Die" ]; then
 		array_deps_required+=( telnet expect )
-	# No More Room in Hell, Counter Strike: Source and Garry's Mod
-	elif [ "${gamename}" == "No More Room in Hell" ]||[ "${gamename}" == "Counter Strike: Source" ]||[ "${gamename}" == "Garry's Mod" ]; then
+	# No More Room in Hell, Counter-Strike: Source and Garry's Mod
+	elif [ "${gamename}" == "No More Room in Hell" ]||[ "${gamename}" == "Counter-Strike: Source" ]||[ "${gamename}" == "Garry's Mod" ]; then
 		if [ "${arch}" == "x86_64" ]; then
 			array_deps_required+=( lib32tinfo5 )
 		else
@@ -182,6 +182,9 @@ if [ -n "$(command -v dpkg-query)" ]; then
 	# Project Zomboid and Minecraft
 	elif [ "${engine}" ==  "projectzomboid" ]||[ "${engine}" == "lwjgl2" ]; then
 		array_deps_required+=( default-jdk )
+	# GoldenEye: Source
+	elif [ "${gamename}" ==  "GoldenEye: Source" ]; then
+		array_deps_required+=( zlib1g:i386 )
 	# Unreal Engine
 	elif [ "${executable}" ==  "./ucc-bin" ]; then
 		#UT2K4
@@ -231,8 +234,8 @@ elif [ -n "$(command -v yum)" ]; then
 	# 7 Days to Die
 	elif [ "${gamename}" ==  "7 Days To Die" ]; then
 		array_deps_required+=( telnet expect )
-	# No More Room in Hell, Counter Strike: Source and Garry's Mod
-	elif [ "${gamename}" == "No More Room in Hell" ]||[ "${gamename}" == "Counter Strike: Source" ]||[ "${gamename}" == "Garry's Mod" ]; then
+	# No More Room in Hell, Counter-Strike: Source and Garry's Mod
+	elif [ "${gamename}" == "No More Room in Hell" ]||[ "${gamename}" == "Counter-Strike: Source" ]||[ "${gamename}" == "Garry's Mod" ]; then
 		array_deps_required+=( ncurses-libs.i686 )
 	# Brainbread 2 and Don't Starve Together
 	elif [ "${gamename}" == "Brainbread 2" ]||[ "${gamename}" == "Don't Starve Together" ]; then
@@ -240,6 +243,9 @@ elif [ -n "$(command -v yum)" ]; then
 	# Project Zomboid and Minecraft
 	elif [ "${engine}" ==  "projectzomboid" ]||[ "${engine}" == "lwjgl2" ]; then
 		array_deps_required+=( java-1.8.0-openjdk )
+	# GoldenEye: Source
+	elif [ "${gamename}" ==  "GoldenEye: Source" ]; then
+		array_deps_required+=( zlib.i686 )
 	# Unreal Engine
 	elif [ "${executable}" ==  "./ucc-bin" ]; then
 		#UT2K4

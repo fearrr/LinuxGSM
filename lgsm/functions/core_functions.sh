@@ -8,6 +8,10 @@
 # Fixes for legacy code
 if [ "${gamename}" == "Teamspeak 3" ]; then
 	gamename="TeamSpeak 3"
+elif [ "${gamename}" == "Counter Strike: Global Offensive" ]; then
+	gamename="Counter-Strike: Global Offensive"
+elif [ "${gamename}" == "Counter Strike: Source" ]; then
+	gamename="Counter-Strike: Source"
 fi
 
 if [ "${emailnotification}" == "on" ]; then
@@ -114,6 +118,15 @@ fn_fetch_function
 command_debug.sh(){
 functionfile="${FUNCNAME}"
 fn_fetch_function
+}
+
+command_postdetails.sh(){
+functionfile="${FUNCNAME}"
+tempffname=$functionfile
+fn_fetch_function
+functionfile="command_details.sh"
+fn_fetch_function
+functionfile=$tempffname
 }
 
 command_details.sh(){
@@ -288,6 +301,11 @@ fn_fetch_function
 }
 
 fix_dst.sh(){
+functionfile="${FUNCNAME}"
+fn_fetch_function
+}
+
+fix_ges.sh(){
 functionfile="${FUNCNAME}"
 fn_fetch_function
 }

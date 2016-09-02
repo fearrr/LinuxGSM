@@ -41,7 +41,7 @@ case "${getopt}" in
 		command_install.sh;;
 	ai|auto-install)
 		fn_autoinstall;;
-	dd|deps-detect)
+	dd|detect-deps)
 		command_dev_detect_deps.sh;;
 	dg|detect-glibc)
 		command_dev_detect_glibc.sh;;
@@ -103,7 +103,7 @@ case "${getopt}" in
 		command_install.sh;;
 	ai|auto-install)
 		fn_autoinstall;;
-	dd|deps-detect)
+	dd|detect-deps)
 		command_dev_detect_deps.sh;;
 	dg|detect-glibc)
 		command_dev_detect_glibc.sh;;
@@ -164,7 +164,7 @@ case "${getopt}" in
 		command_install.sh;;
 	ai|auto-install)
 		fn_autoinstall;;
-	dd|deps-detect)
+	dd|detect-deps)
 		command_dev_detect_deps.sh;;
 	dg|detect-glibc)
 		command_dev_detect_glibc.sh;;
@@ -220,7 +220,7 @@ case "${getopt}" in
 		command_dev_debug.sh;;
 	i|install)
 		command_install.sh;;
-	dd|deps-detect)
+	dd|detect-deps)
 		command_dev_detect_deps.sh;;
 	dg|detect-glibc)
 		command_dev_detect_glibc.sh;;
@@ -356,7 +356,7 @@ case "${getopt}" in
 		command_install.sh;;
 	ai|auto-install)
 		fn_autoinstall;;
-	dd|deps-detect)
+	dd|detect-deps)
 		command_dev_detect_deps.sh;;
 	dg|detect-glibc)
 		command_dev_detect_glibc.sh;;
@@ -423,7 +423,7 @@ case "${getopt}" in
 		fn_autoinstall;;
 	mc|map-compressor)
 		compress_ut99_maps.sh;;
-	dd|deps-detect)
+	dd|detect-deps)
 		command_dev_detect_deps.sh;;
 	dg|detect-glibc)
 		command_dev_detect_glibc.sh;;
@@ -491,7 +491,7 @@ case "${getopt}" in
 		command_install.sh;;
 	ai|auto-install)
 		fn_autoinstall;;
-	dd|deps-detect)
+	dd|detect-deps)
 		command_dev_detect_deps.sh;;
 	dg|detect-glibc)
 		command_dev_detect_glibc.sh;;
@@ -561,7 +561,7 @@ case "${getopt}" in
 		install_ut2k4_key.sh;;
 	mc|map-compressor)
 		compress_unreal2_maps.sh;;
-	dd|deps-detect)
+	dd|detect-deps)
 		command_dev_detect_deps.sh;;
 	dg|detect-glibc)
 		command_dev_detect_glibc.sh;;
