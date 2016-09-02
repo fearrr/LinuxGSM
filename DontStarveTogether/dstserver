@@ -18,12 +18,14 @@ version="020916" # WIP
 # multishard: Should this cluster have multiple shards/servers?
 # shard: Name of the shard (It should be "Master" for the main/master server.)
 # slave: Is it a server that connects to a master server?
+# cave: Should the map be a cave?
 # Visit the following link for more information:
 # https://github.com/GameServerManagers/LinuxGSM/wiki/Don't-Starve-Together
 multishard="false"
 slave="false"
 shard="Master" 
 cluster="Cluster_1"
+cave="false"
 
 # Notification Alerts
 # (on|off)
