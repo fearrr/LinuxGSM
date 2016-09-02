@@ -48,70 +48,66 @@ fn_arma3config(){
 }
 
 fn_dstconfig(){
+	overwrite="true"
 	if [ -z "${autoinstall}" ]; then
 		echo ""
 		echo "Configuring ${gamename} Server"
 		echo "================================="
 		sleep 1
-		read -p "Enter server name: " servername
-		read -p "Enter server password: " serverpass
-		while true; do
-			read -e -i "y" -p "Should the map be a cave? [Y/n]" yn
-			case $yn in
-			[Yy]* ) cave="true"; break;;
-			[Nn]* ) cave="false"; break;;
-			* ) echo "Please answer yes or no.";;
-			esac
-		done
-	else
-		servername="${servicename}"
-		serverpass=""
-		cave="false"
+
+		if [ -f "${clustercfg}" ]; then
+			echo "${clustercfg} already exists. Do you want to overwrite it's settings?"
+			fn_script_log_info "${clustercfg} already exists."
+			while true; do
+				read -e -i "n" -p "Continue? [Y/n]" yn
+				case $yn in
+				[Yy]* ) overwrite="true"; break;;
+				[Nn]* ) overwrite="false"; break;;
+				* ) echo "Please answer yes or no.";;
+				esac
+			done
+		fi
+
+		if [ "${overwrite}" == "true" ]; then
+			read -p "Enter server name: " servername
+			read -p "Enter server password: " serverpass
+		else
+			servername="${servicename}"
+			serverpass=""
+		fi
 	fi
 
 	# cluster.ini
-	overwrite="true"
-	if [ -f "${clustercfg}" ] && [ -z "${autoinstall}" ]; then
-		echo "${clustercfg} already exists. Do you want to overwrite it?"
-		fn_script_log_info "${clustercfg} already exists."
-		while true; do
-			read -e -i "y" -p "Continue? [Y/n]" yn
-			case $yn in
-			[Yy]* ) break;;
-			[Nn]* ) overwrite="false"; break;;
-			* ) echo "Please answer yes or no.";;
-			esac
-		done
-	fi
-	
 	if [ "${overwrite}" == "true" ]; then
 		echo "creating ${clustercfg} config file."
 		fn_script_log_info "creating ${clustercfg} config file."
 		cp -v "${clustercfgdefault}" "${clustercfgfullpath}"
+		sleep 1
+		echo "changing server name."
+		fn_script_log_info "changing server name."
+		sed -i "s/<servername>/${servername}/g" "${clustercfgfullpath}"
+		sleep 1
+		echo "changing server password."
+		fn_script_log_info "changing server password."
+		sed -i "s/<serverpass>/${serverpass}/g" "${clustercfgfullpath}"
+		sleep 1
+		echo "randomizing cluster key."
+		fn_script_log_info "randomizing cluster key."
+		randomkey=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
+		sed -i "s/<clusterkey>/${randomkey}/g" "${clustercfgfullpath}"
+		sleep 1
 	fi
-	
-	echo "changing server name."
-	fn_script_log_info "changing server name."
-	sed -i "s/<servername>/${servername}/g" "${clustercfgfullpath}"
-	
-	echo "changing server password."
-	fn_script_log_info "changing server password."
-	sed -i "s/<serverpass>/${serverpass}/g" "${clustercfgfullpath}"
-	
-	echo "randomizing cluster key."
-	fn_script_log_info "randomizing cluster key."
-	clusterkey=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
-	sed -i "s/<clusterkey>/${clusterkey}/g" "${clustercfgfullpath}"
 	
 	# server.ini
 	echo "creating ${servercfg} config file."
 	fn_script_log_info "creating ${servercfg} config file."
 	cp -v "${servercfgdefault}" "${servercfgfullpath}"
-	
+	sleep 1
 	echo "changing shard name."
 	fn_script_log_info "changing shard name."
 	sed -i "s/<shard>/${shard}/g" "${servercfgfullpath}"
-
+	sleep 1
+	
 	# worldgenoverride.lua
 	if [ "${cave}" == "true" ]; then
 		echo "defining ${shard} as cave in ${servercfgdir}/worldgenoverride.lua."
@@ -119,6 +115,7 @@ fn_dstconfig(){
 		echo 'return { override_enabled = true, preset = "DST_CAVE", }' > "${servercfgdir}/worldgenoverride.lua"
 	fi
 	sleep 1
+	echo ""
 }
 
 fn_goldsourceconfig(){
@@ -371,18 +368,22 @@ elif [ "${gamename}" == "Day of Infamy" ]; then
 	sleep 1
 	fn_sourceconfig
 elif [ "${gamename}" == "Don't Starve Together" ]; then
-	cd "${clustercfgdir}"
-	if [ "${multilevel}" == "true" ]; then
-		wget ${githuburl}/DontStarveTogether/cfg/multi/lgsm-default.cluster.ini 2>&1 | grep -F HTTP | cut -c45- | uniq
+	if [ "${multishard}" == "true" ]; then
+		clcfg="${githuburl}/DontStarveTogether/cfg/multi/lgsm-default.cluster.ini"
 		if [ "${slave}" == "true" ]; then
-			wget -O "${servercfgdefault}" ${githuburl}/DontStarveTogether/cfg/multi/lgsm-default.slave.ini 2>&1 | grep -F HTTP | cut -c45- | uniq
+			svcfg="${githuburl}/DontStarveTogether/cfg/multi/lgsm-default.slave.ini"
 		else
-			wget -O "${servercfgdefault}" ${githuburl}/DontStarveTogether/cfg/multi/lgsm-default.master.ini 2>&1 | grep -F HTTP | cut -c45- | uniq
+			svcfg="${githuburl}/DontStarveTogether/cfg/multi/lgsm-default.master.ini"
 		fi
 	else
-		wget ${githuburl}/DontStarveTogether/cfg/single/lgsm-default.cluster.ini 2>&1 | grep -F HTTP | cut -c45- | uniq
-		wget ${githuburl}/DontStarveTogether/cfg/single/lgsm-default.server.ini 2>&1 | grep -F HTTP | cut -c45- | uniq
-	fi
+		clcfg="${githuburl}/DontStarveTogether/cfg/single/lgsm-default.cluster.ini"
+		svcfg="${githuburl}/DontStarveTogether/cfg/single/lgsm-default.server.ini"
+	fi	
+	echo -e "downloading lgsm-default.cluster.ini...\c"
+	wget -O "${clustercfgdefault}" "${clcfg}" 2>&1 | grep -F HTTP | cut -c45- | uniq
+	sleep 1	
+	echo -e "downloading lgsm-default.server.ini...\c"
+	wget -O "${servercfgdefault}" "${svcfg}" 2>&1 | grep -F HTTP | cut -c45- | uniq
 	sleep 1
 	fn_dstconfig
 elif [ "${gamename}" == "Double Action: Boogaloo" ]; then

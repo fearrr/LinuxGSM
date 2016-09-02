@@ -1,8 +1,8 @@
 #!/bin/bash
 # LGSM install_dst_token.sh function
-# Author: Marvin Lehmann (marvinl97)
+# Author: Daniel Gibbs & Marvin Lehmann (marvinl97)
 # Website: https://gameservermanagers.com
-# Description: Configures dstserver cluster with given token.
+# Description: Configures Don't Starve Together cluster with given token.
 
 local commandname="INSTALL"
 local commandaction="Install"
@@ -12,7 +12,7 @@ echo ""
 echo "Enter ${gamename} Cluster Token"
 echo "================================="
 sleep 1
-echo "A cluster token is required to run this server"
+echo "A cluster token is required to run this server!"
 echo "Follow the instructions in this link to obtain this key:"
 echo "https://gameservermanagers.com/dst-auth-token"
 echo ""
@@ -20,9 +20,11 @@ if [ -z "${autoinstall}" ]; then
 	echo "Once you have the cluster token, enter it below"
 	echo -n "Cluster Token: "
 	read token
-	echo "${token}" > "${clustercfgdir}/cluster_token.ini"
-	if [ -f "${clustercfgdir}/cluster_token.ini" ]; then
-		fn_script_log_info "DST cluster token created"
+	mkdir -pv "${clustercfgdir}"
+	echo "${token}" > "${clustercfgdir}/cluster_token.txt"
+	if [ -f "${clustercfgdir}/cluster_token.txt" ]; then
+		echo "Don't Starve Together cluster token created"
+		fn_script_log_info "Don't Starve Together cluster token created"
 	fi
 else
 	echo "You can add your cluster token using the following command"

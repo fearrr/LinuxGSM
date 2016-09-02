@@ -2,6 +2,7 @@
 # Dont Starve Together
 # Server Management Script
 # Author: Daniel Gibbs
+# Contributor: Marvin Lehmann (marvinl97)
 # Website: https://gameservermanagers.com
 if [ -f ".dev-debug" ]; then
 	exec 5>dev-debug.log
@@ -9,19 +10,20 @@ if [ -f ".dev-debug" ]; then
 	set -x
 fi
 
-version="290816" # WIP
+version="020916" # WIP
 
 #### Variables ####
 
-# Installation Variables (move to installer?)
-# multilevel: will this server have multiple levels/shards?
-# shard: name of the shard (It should be "Master" for the main/master server)
+# Installation Variables (move to installer? could be problematic with paths?)
+# multishard: Should this cluster have multiple shards/servers?
+# shard: Name of the shard (It should be "Master" for the main/master server.)
 # slave: Is it a server that connects to a master server?
-# visit the following link for more information
+# Visit the following link for more information:
 # https://github.com/GameServerManagers/LinuxGSM/wiki/Don't-Starve-Together
-multilevel="false"
-shard="Master" 
+multishard="false"
 slave="false"
+shard="Master" 
+cluster="Cluster_1"
 
 # Notification Alerts
 # (on|off)
@@ -51,12 +53,6 @@ updateonstart="off"
 # You shouldn't probably touch that
 persistentstorageroot="${HOME}/.klei"
 confdir="DoNotStarveTogether"
-cluster="MyDediServer"
-
-# Force shard to Master if it is a single shard server
-if [ "${multilevel}" != "true" ] && [ "${shard}" != "Master" ]; then
-	shard="Master"
-fi
 
 fn_parms(){
 parms="-persistent_storage_root ${persistentstorageroot} -conf_dir ${confdir} -cluster ${cluster} -shard ${shard} -bind_ip ${ip} -port ${port} -steam_master_server_port ${steammasterserverport} -steam_authentication_port ${steamauthenticationport} -tick ${tickrate}"
