@@ -55,7 +55,7 @@ fn_dstconfig(){
 		echo "================================="
 		sleep 1
 
-		if [ -f "${clustercfg}" ]; then
+		if [ -s "${clustercfgfullpath}" ]; then
 			echo "${clustercfg} already exists. Do you want to overwrite it's settings?"
 			fn_script_log_info "${clustercfg} already exists."
 			while true; do
@@ -289,9 +289,9 @@ fn_unrealtournament(){
 
 echo ""
 if [ "${gamename}" != "Hurtworld" ]; then
-echo "Creating Configs"
-echo "================================="
-sleep 1
+	echo "Creating Configs"
+	echo "================================="
+	sleep 1
 	mkdir -pv "${servercfgdir}"
 	cd "${servercfgdir}"
 	githuburl="https://raw.githubusercontent.com/${githubuser}/${githubrepo}/${githubbranch}"

@@ -17,14 +17,28 @@ echo "Follow the instructions in this link to obtain this key:"
 echo "https://gameservermanagers.com/dst-auth-token"
 echo ""
 if [ -z "${autoinstall}" ]; then
-	echo "Once you have the cluster token, enter it below"
-	echo -n "Cluster Token: "
-	read token
-	mkdir -pv "${clustercfgdir}"
-	echo "${token}" > "${clustercfgdir}/cluster_token.txt"
-	if [ -f "${clustercfgdir}/cluster_token.txt" ]; then
-		echo "Don't Starve Together cluster token created"
-		fn_script_log_info "Don't Starve Together cluster token created"
+	if [ -s "${clustercfgdir}/cluster_token.txt" ]; then
+		echo "The cluster token is already set. Do you want to overwrite it?"
+		fn_script_log_info "Don't Starve Together cluster token is already set"
+		while true; do
+			read -e -i "n" -p "Continue? [Y/n]" yn
+			case $yn in
+			[Yy]* ) overwrite="true"; break;;
+			[Nn]* ) overwrite="false"; break;;
+			* ) echo "Please answer yes or no.";;
+			esac
+		done
+	fi	
+	if [ "${overwrite}" == "true" ]; then
+		echo "Once you have the cluster token, enter it below"
+		echo -n "Cluster Token: "
+		read token
+		mkdir -pv "${clustercfgdir}"
+		echo "${token}" > "${clustercfgdir}/cluster_token.txt"
+		if [ -f "${clustercfgdir}/cluster_token.txt" ]; then
+			echo "Don't Starve Together cluster token created"
+			fn_script_log_info "Don't Starve Together cluster token created"
+		fi
 	fi
 else
 	echo "You can add your cluster token using the following command"
