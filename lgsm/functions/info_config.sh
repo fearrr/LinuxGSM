@@ -43,6 +43,7 @@ fn_info_config_avalanche(){
 	fi
 }
 
+# ToDo: improve patterns (grep -v "#" isn't optimal)
 fn_info_config_dontstarve(){
 	if [ ! -f "${clustercfgfullpath}" ]; then
 		servername="${unavailable}"
@@ -50,7 +51,6 @@ fn_info_config_dontstarve(){
 		slots="${zero}"
 		gamemode="${unavailable}"
 		# tickrate="${zero}"
-		
 	else
 		servername=$(grep "cluster_name = " "${clustercfgfullpath}" | grep -v "#" | sed 's/cluster_name = //g')
 		serverpassword=$(grep "cluster_password = " "${clustercfgfullpath}" | grep -v "#" | sed 's/cluster_password = //g')
@@ -58,7 +58,6 @@ fn_info_config_dontstarve(){
 		gamemode=$(grep "game_mode = " "${clustercfgfullpath}" | grep -v "#" | sed 's/game_mode = //g')
 		# tickrate=$(grep "tick_rate" "${clustercfgfullpath}" | grep -v "#" | tr -cd '[:digit:]')
 		
-
 		# Not Set
 		servername=${servername:-"NOT SET"}
 		serverpassword=${serverpassword:-"NOT SET"}

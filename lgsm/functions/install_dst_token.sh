@@ -39,6 +39,7 @@ if [ -z "${autoinstall}" ]; then
 			echo "Don't Starve Together cluster token created"
 			fn_script_log_info "Don't Starve Together cluster token created"
 		fi
+		unset overwrite
 	fi
 else
 	echo "You can add your cluster token using the following command"

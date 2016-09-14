@@ -10,15 +10,17 @@ if [ -f ".dev-debug" ]; then
 	set -x
 fi
 
-version="020916" # WIP
+version="140916" # WIP
 
 #### Variables ####
 
 # Installation Variables (move to installer? could be problematic with paths?)
+# 						!!! DO NOT USE SPACES !!!
 # multishard: Should this cluster have multiple shards/servers?
+# slave: Is it a server that connects to a master server? (required for multi-sharding)
 # shard: Name of the shard (It should be "Master" for the main/master server.)
-# slave: Is it a server that connects to a master server?
-# cave: Should the map be a cave?
+# cluster: Name of the cluster
+# cave: Should the world generator be overwritten to create a cave map?
 # Visit the following link for more information:
 # https://github.com/GameServerManagers/LinuxGSM/wiki/Don't-Starve-Together
 multishard="false"
@@ -45,7 +47,6 @@ steampass=""
 
 # Start Variables
 # ports have to be increased for each shard
-ip="0.0.0.0"
 port="11000"
 steamauthenticationport="8768"
 steammasterserverport="27018"
@@ -57,7 +58,7 @@ persistentstorageroot="${HOME}/.klei"
 confdir="DoNotStarveTogether"
 
 fn_parms(){
-parms="-persistent_storage_root ${persistentstorageroot} -conf_dir ${confdir} -cluster ${cluster} -shard ${shard} -bind_ip ${ip} -port ${port} -steam_master_server_port ${steammasterserverport} -steam_authentication_port ${steamauthenticationport} -tick ${tickrate}"
+parms="-port ${port} -steam_master_server_port ${steammasterserverport} -steam_authentication_port ${steamauthenticationport} -tick ${tickrate} -persistent_storage_root ${persistentstorageroot} -conf_dir ${confdir} -cluster ${cluster} -shard ${shard}"
 }
 
 #### Advanced Variables ####

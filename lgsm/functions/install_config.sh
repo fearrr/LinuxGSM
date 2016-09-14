@@ -96,6 +96,7 @@ fn_dstconfig(){
 		randomkey=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 		sed -i "s/<clusterkey>/${randomkey}/g" "${clustercfgfullpath}"
 		sleep 1
+		unset overwrite
 	fi
 	
 	# server.ini
