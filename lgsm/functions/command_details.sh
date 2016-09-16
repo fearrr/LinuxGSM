@@ -347,7 +347,8 @@ fn_details_dontstarve(){
 	{
 		echo -e "DESCRIPTION\tDIRECTION\tPORT\tPROTOCOL"
 		echo -e "> Game\tINBOUND\t${port}\tudp"
-		# ToDo
+		echo -e "> Steam: Auth\tINBOUND\t${steamauthenticationport}\tudp"
+		echo -e "> Steam: Master\tINBOUND\t${steammasterserverport}\tudp"
 	} | column -s $'\t' -t
 }
 
