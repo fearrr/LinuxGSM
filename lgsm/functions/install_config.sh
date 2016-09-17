@@ -48,7 +48,7 @@ fn_arma3config(){
 }
 
 fn_dstconfig(){
-	overwrite="true"
+	overwritesettings="true"
 	if [ -z "${autoinstall}" ]; then
 		echo ""
 		echo "Configuring ${gamename} Server"
@@ -61,14 +61,14 @@ fn_dstconfig(){
 			while true; do
 				read -e -i "n" -p "Continue? [Y/n]" yn
 				case $yn in
-				[Yy]* ) overwrite="true"; break;;
-				[Nn]* ) overwrite="false"; break;;
+				[Yy]* ) overwritesettings="true"; break;;
+				[Nn]* ) overwritesettings="false"; break;;
 				* ) echo "Please answer yes or no.";;
 				esac
 			done
 		fi
 
-		if [ "${overwrite}" == "true" ]; then
+		if [ "${overwritesettings}" == "true" ]; then
 			read -p "Enter server name: " servername
 			read -p "Enter server password: " serverpass
 		else
@@ -78,7 +78,7 @@ fn_dstconfig(){
 	fi
 
 	# cluster.ini
-	if [ "${overwrite}" == "true" ]; then
+	if [ "${overwritesettings}" == "true" ]; then
 		echo "creating ${clustercfg} config file."
 		fn_script_log_info "creating ${clustercfg} config file."
 		cp -v "${clustercfgdefault}" "${clustercfgfullpath}"
@@ -96,7 +96,7 @@ fn_dstconfig(){
 		randomkey=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 		sed -i "s/<clusterkey>/${randomkey}/g" "${clustercfgfullpath}"
 		sleep 1
-		unset overwrite
+		unset overwritesettings
 	fi
 	
 	# server.ini
