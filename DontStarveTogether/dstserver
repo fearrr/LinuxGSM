@@ -10,7 +10,7 @@ if [ -f ".dev-debug" ]; then
 	set -x
 fi
 
-version="140916" # WIP
+version="160916" # WIP
 
 #### Variables ####
 
@@ -35,6 +35,7 @@ cave="false"
 # Email
 emailalert="off"
 email="email@example.com"
+#emailfrom="email@example.com"
 
 # Pushbullet
 # https://www.pushbullet.com/#settings
@@ -72,6 +73,11 @@ githubbranch="dstserver"
 
 # Steam
 appid="343050"
+
+# Steam App Branch Select
+# Allows to opt into the various Steam app branches. Default branch is "".
+# Example: "-beta anewreignbeta"
+branch=""
 
 # Server Details
 servicename="dst-server"
