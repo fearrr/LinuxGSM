@@ -50,12 +50,14 @@ fn_info_config_dontstarve(){
 		serverpassword="${unavailable}"
 		slots="${zero}"
 		gamemode="${unavailable}"
+		masterport="${zero}"
 		# tickrate="${zero}"
 	else
 		servername=$(grep "cluster_name = " "${clustercfgfullpath}" | grep -v "#" | sed 's/cluster_name = //g')
 		serverpassword=$(grep "cluster_password = " "${clustercfgfullpath}" | grep -v "#" | sed 's/cluster_password = //g')
 		slots=$(grep "max_players" "${clustercfgfullpath}" | grep -v "#" | tr -cd '[:digit:]')
 		gamemode=$(grep "game_mode = " "${clustercfgfullpath}" | grep -v "#" | sed 's/game_mode = //g')
+		masterport=$(grep "master_port" "${clustercfgfullpath}" | grep -v "#" | tr -cd '[:digit:]')
 		# tickrate=$(grep "tick_rate" "${clustercfgfullpath}" | grep -v "#" | tr -cd '[:digit:]')
 		
 		# Not Set
@@ -63,6 +65,7 @@ fn_info_config_dontstarve(){
 		serverpassword=${serverpassword:-"NOT SET"}
 		slots=${slots:-"NOT SET"}
 		gamemode=${gamemode:-"NOT SET"}
+		masterport=${masterport:-"NOT SET"}
 		# tickrate=${tickrate:-"NOT SET"}
 	fi
 	
