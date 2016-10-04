@@ -25,7 +25,6 @@ elif [ -n "${appid}" ]; then
 	install_steamcmd.sh
 	install_server_files.sh
 	if [ "${gamename}" == "Don't Starve Together" ]; then
-		# get installation variables here ??
 		install_dst_token.sh
 	fi
 fi

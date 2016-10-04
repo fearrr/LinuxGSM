@@ -43,7 +43,6 @@ fn_info_config_avalanche(){
 	fi
 }
 
-# ToDo: improve patterns (grep -v "#" isn't optimal)
 fn_info_config_dontstarve(){
 	if [ ! -f "${clustercfgfullpath}" ]; then
 		servername="${unavailable}"
@@ -68,15 +67,6 @@ fn_info_config_dontstarve(){
 		masterport=${masterport:-"NOT SET"}
 		# tickrate=${tickrate:-"NOT SET"}
 	fi
-	
-	# if [ ! -f "${servercfgfullpath}" ]; then
-		# port="${zero}"
-	# else
-		# port=$(grep "server_port" "${servercfgfullpath}" | grep -v "#" | tr -cd '[:digit:]')
-		
-		# # Not Set
-		# port=${port:-"NOT SET"}
-	# fi
 }
 
 fn_info_config_minecraft(){

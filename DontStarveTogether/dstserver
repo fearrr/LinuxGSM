@@ -14,8 +14,7 @@ version="160916" # WIP
 
 #### Variables ####
 
-# Installation Variables (move to installer? could be problematic with paths?)
-# 						!!! DO NOT USE SPACES !!!
+# Installation Variables ( !!! DO NOT USE SPACES !!! )
 # multishard: Should this cluster have multiple shards/servers?
 # slave: Is it a server that connects to a master server? (required for multi-sharding)
 # shard: Name of the shard (It should be "Master" for the main/master server.)
