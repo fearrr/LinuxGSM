@@ -10,14 +10,14 @@ if [ -f ".dev-debug" ]; then
 	set -x
 fi
 
-version="160916" # WIP
+version="141016"
 
 #### Variables ####
 
 # Installation Variables ( !!! DO NOT USE SPACES !!! )
 # multishard: Should this cluster have multiple shards/servers?
-# slave: Is it a server that connects to a master server? (required for multi-sharding)
-# shard: Name of the shard (It should be "Master" for the main/master server.)
+# slave: Should this server connect to/depend on a master server? (required for multi-sharding)
+# shard: Name of the shard (It is recommended to use "Master" for the main/master server.)
 # cluster: Name of the cluster
 # cave: Should the world generator be overwritten to create a cave map?
 # Visit the following link for more information:

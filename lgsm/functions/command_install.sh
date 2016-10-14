@@ -24,9 +24,6 @@ elif [ "${gamename}" == "Unreal Tournament 3" ]||[ "${gamename}" == "Battlefield
 elif [ -n "${appid}" ]; then
 	install_steamcmd.sh
 	install_server_files.sh
-	if [ "${gamename}" == "Don't Starve Together" ]; then
-		install_dst_token.sh
-	fi
 fi
 
 # Configuration
@@ -35,6 +32,8 @@ if [ "${gamename}" == "Counter-Strike: Global Offensive" ]||[ "${gamename}" == "
 	install_gslt.sh
 elif [ "${gamename}" == "TeamSpeak 3" ]; then
 	install_ts3db.sh
+elif [ "${gamename}" == "Don't Starve Together" ]; then
+	install_dst_token.sh
 fi
 
 fix.sh
