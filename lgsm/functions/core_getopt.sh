@@ -182,9 +182,9 @@ case "${getopt}" in
 	ai|auto-install)
 		fn_autoinstall;;
 	mi|mods-install
-		command_mods_install.sh
+		command_mods_install.sh;;
 	mu|mods-update
-		command_mods_update.sh
+		command_mods_update.sh;;
 	dd|detect-deps)
 		command_dev_detect_deps.sh;;
 	dg|detect-glibc)
@@ -454,9 +454,9 @@ case "${getopt}" in
 	ai|auto-install)
 		fn_autoinstall;;
 	mi|mods-install
-		command_mods_install.sh
+		command_mods_install.sh;;
 	mu|mods-update
-		command_mods_update.sh
+		command_mods_update.sh;;
 	dd|detect-deps)
 		command_dev_detect_deps.sh;;
 	dg|detect-glibc)
