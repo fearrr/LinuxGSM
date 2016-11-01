@@ -11,7 +11,7 @@ local function_selfname="$(basename $(readlink -f "${BASH_SOURCE[0]}"))"
 
 check.sh
 
-# Define mods names
+# Define mods information (required)
 # mod_info_name=( name shortname "Pretty Name" "URL" )
 mod_info_sourcemod=( sourcemod sm "SourceMod" "http://sourcemod.net/latest.php?os=Linux&version=1.8" )
 mod_info_metamod=( metamod mm "MetaMod" "http://cdn.probablyaserver.com/sourcemod/mmsource-1.10.6-linux.tar.gz" )
@@ -21,17 +21,43 @@ mod_info_rustoxide=( rustoxide ro "Oxide for Rust" "https://raw.githubuserconten
 mod_info_hwoxide=( hwoxide ho "Oxide for Hurtworld" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-Hurtworld_Linux.zip" )
 mod_info_sdtdoxide=( sdtdoxide so "Oxide for 7 Days To Die" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-7DaysToDie_Linux.zip" )
 
-# Set all mods info into one array for convenience
+# Set all mods info into one array for convenience (required)
 mods_global_array=( ${mod_info_sourcemod[@]} ${mod_info_metamod[@]} ${mod_info_ulib[@]} ${mod_info_ulx[@]} ${mod_info_rustoxide[@]} ${mod_info_hwoxide[@]} ${mod_info_sdtdoxide[@]} )
 
-# Set install directories
-fn_mods_install_dir(){
-# If systemdir doesn't exist, then the game isn't installed
-if [ ! -d "${systemdir}" ]; then
-	fn_print_fail "${gamename} needs to be installed first."
-	core_exit.sh
+# Prettify mod name
+# Required for output during mod installation & update and for getting the URL
+fn_mod_name_prettify(){
+if [ "${currentmod}" == "sourcemod" ]||[ "${currentmod}" == "sm" ]; then
+	currentmod_prettyname="${mod_info_sourcemod[2]}"
+elif [ "${currentmod}" == "metamod" ]||[ "${currentmod}" == "mm" ]; then
+	currentmod_prettyname="${mod_info_metamod[2]}"
+elif [ "${currentmod}" == "ulib" ]||[ "${currentmod}" == "ub" ]; then
+	currentmod_prettyname="${mod_info_ulib[2]}"
+elif [ "${currentmod}" == "ulx" ]||[ "${currentmod}" == "ux" ]; then
+	currentmod_prettyname="${mod_info_ulx[2]}"
+elif [ "${currentmod}" == "rustoxide" ]||[ "${currentmod}" == "ro" ]; then
+	currentmod_prettyname="${mod_info_rustoxide[2]}"
+elif [ "${currentmod}" == "hwtoxide" ]||[ "${currentmod}" == "ho" ]; then
+	currentmod_prettyname="${mod_info_hwoxide[2]}"
+elif [ "${currentmod}" == "sdtdoxide" ]||[ "${currentmod}" == "so" ]; then
+	currentmod_prettyname="${mod_info_sdtdoxide[2]}"
 fi
+}
 
+# Get URL from a mod prettyname
+# URL is the next value into the array after the prettyname
+fn_mod_get_url(){
+# Look through the arry
+for ((index=0; index <= ${#mods_global_array[@]}; index++)); do
+	if [ "${mods_global_array[index]}" == "${currentmod_prettyname}" ]; then
+		# pretty_name found, next value is URL
+		mod_url="${mods_global_array[index+1]}"
+	fi
+done
+}
+
+# Set install directories for all game types
+fn_mods_install_dir(){
 # Unity3D games 
 if [ "${engine}" == "unity3d" ]; then
 	modsinstalldir="${systemdir}"
@@ -84,35 +110,6 @@ fn_mods_commands(){
 			sdtdoxide | so | http://oxidemod.org/downloads/oxide-for-7-days-to-die.813/
 		End
 	fi
-}
-
-# Prettify mod name
-# For output during mod installation & update
-fn_mod_name_prettify(){
-if [ "${currentmod}" == "sourcemod" ]||[ "${currentmod}" == "sm" ]; then
-	currentmod_prettyname="${mod_info_sourcemod[2]}"
-elif [ "${currentmod}" == "metamod" ]||[ "${currentmod}" == "mm" ]; then
-	currentmod_prettyname="${mod_info_metamod[2]}"
-elif [ "${currentmod}" == "ulib" ]||[ "${currentmod}" == "ub" ]; then
-	currentmod_prettyname="${mod_info_ulib[2]}"
-elif [ "${currentmod}" == "ulx" ]||[ "${currentmod}" == "ux" ]; then
-	currentmod_prettyname="${mod_info_ulx[2]}"
-elif [ "${currentmod}" == "rustoxide" ]||[ "${currentmod}" == "ro" ]; then
-	currentmod_prettyname="${mod_info_rustoxide[2]}"
-elif [ "${currentmod}" == "hwtoxide" ]||[ "${currentmod}" == "ho" ]; then
-	currentmod_prettyname="${mod_info_hwoxide[2]}"
-elif [ "${currentmod}" == "sdtdoxide" ]||[ "${currentmod}" == "so" ]; then
-	currentmod_prettyname="${mod_info_sdtdoxide[2]}"
-fi
-}
-
-# Get URL from a mod prettyname
-fn_mod_get_url(){
-for ((index=0; index <= ${#mods_global_array[@]}; index++)); do
-	if [ "${mods_global_array[index]}" == "${currentmod_prettyname}" ]; then
-		mod_url="${mods_global_array[index+1]}"
-	fi
-done
 }
 
 fn_mods_install_dir
