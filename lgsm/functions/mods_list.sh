@@ -11,5 +11,9 @@ local function_selfname="$(basename $(readlink -f "${BASH_SOURCE[0]}"))"
 
 check.sh
 
-if [ "${engine}" == "source" ]&&[ "${gamename} != "Garry's Mod" ]; then
+if [ "${engine}" == "source" ]&&[ "${gamename}" != "Garry's Mod" ]; then
+read -r -d '' modslist <<- End
+sm | sourcemod
+mm | metamod
+End
 fi
