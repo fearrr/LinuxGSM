@@ -47,13 +47,55 @@ fi
 # Get URL from a mod prettyname
 # URL is the next value into the array after the prettyname
 fn_mod_get_url(){
-# Look through the arry
+# Look through the array
 for ((index=0; index <= ${#mods_global_array[@]}; index++)); do
+	# When prettyname matches
 	if [ "${mods_global_array[index]}" == "${currentmod_prettyname}" ]; then
-		# pretty_name found, next value is URL
+		# prettyname found, next value is URL
 		mod_url="${mods_global_array[index+1]}"
 	fi
 done
+}
+
+# Define mods commands for installation
+fn_mods_commands(){
+	# Source Games
+	if [ "${engine}" == "source" ]&&[ "${gamename}" != "Garry's Mod" ]; then
+		modsarray=( sm sourcemod mm metamod )
+		read -r -d '' modslist <<- End
+			sm | sourcemod | http://www.sourcemod.net/
+			mm | metamod | https://www.sourcemm.net/
+		End
+	fi
+	# Garry's Mod
+	if [ "${gamename}" == "Garry's Mod" ]; then
+		modsarray=( ulib ub ulx ux)
+		read -r -d '' modslist <<- End
+			ulib | ub | http://ulyssesmod.net/
+			ulx | ux | http://ulyssesmod.net/
+		End
+	fi
+	# Rust
+	if [ "${gamename}" == "Rust" ]; then
+		modsarray=( rustoxide ro )
+		read -r -d '' modslist <<- End
+			rustoxide | ro | http://oxidemod.org/downloads/oxide-for-rust.1659/
+		End
+	fi
+	# Hurtworld
+	if [ "${gamename}" == "Hurtworld" ]; then
+		modsarray=( hwoxide ho )
+		read -r -d '' modslist <<- End
+			hwoxide | ho | http://oxidemod.org/downloads/oxide-for-hurtworld.1332/
+		End
+	fi
+	# 7 Days to Die
+	if [ "${gamename}" == "7 Days To Die" ]; then
+		modsarray=( sdtdoxide so )
+		read -r -d '' modslist <<- End
+			sdtdoxide | so | http://oxidemod.org/downloads/oxide-for-7-days-to-die.813/
+		End
+	fi
 }
 
 # Set install directories for all game types
@@ -67,51 +109,6 @@ elif [ "${engine}" == "source" ]; then
 fi
 }
 
-# Define mods commands for installation
-fn_mods_commands(){
-	# Source Games
-	if [ "${engine}" == "source" ]&&[ "${gamename}" != "Garry's Mod" ]; then
-		modsarray=( sm sourcemod mm metamod )
-		read -r -d '' modslist <<- End
-			sm | sourcemod | http://www.sourcemod.net/
-			mm | metamod | https://www.sourcemm.net/
-		End
-	fi
-
-	# Garry's Mod
-	if [ "${gamename}" == "Garry's Mod" ]; then
-		modsarray=( ulib ub ulx ux)
-		read -r -d '' modslist <<- End
-			ulib | ub | http://ulyssesmod.net/
-			ulx | ux | http://ulyssesmod.net/
-		End
-	fi
-
-	# Rust
-	if [ "${gamename}" == "Rust" ]; then
-		modsarray=( rustoxide ro )
-		read -r -d '' modslist <<- End
-			rustoxide | ro | http://oxidemod.org/downloads/oxide-for-rust.1659/
-		End
-	fi
-
-	# Hurtworld
-	if [ "${gamename}" == "Hurtworld" ]; then
-		modsarray=( hwoxide ho )
-		read -r -d '' modslist <<- End
-			hwoxide | ho | http://oxidemod.org/downloads/oxide-for-hurtworld.1332/
-		End
-	fi
-
-	# 7 Days to Die
-	if [ "${gamename}" == "7 Days To Die" ]; then
-		modsarray=( sdtdoxide so )
-		read -r -d '' modslist <<- End
-			sdtdoxide | so | http://oxidemod.org/downloads/oxide-for-7-days-to-die.813/
-		End
-	fi
-}
 
 fn_mods_install_dir
-fn_mods_urls
 fn_mods_commands

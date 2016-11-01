@@ -72,11 +72,48 @@ if [ ! -d "${modsinstalldir}" ]; then
 fi
 }
 
+# Clear mod download directory so that there is only one file in it since we don't the file name and extention
+fn_clear_tmp_mods(){
+	rm -r "${modsdldir}/*"
+	fn_script_log "Clearing temp mod download directory: ${modsdldir}"
+}
+
 # Download and extract the mod using core_dl.sh
 fn_mod_installation(){
-# Get URL as $mod_url from mods_list.sh
-fn_mod_get_url
-echo "Mod URL is ${mod_url}"
+	# Create or clear lgsm/tmp/mods dir 
+	if [ -n "${tmpdir}" ]; then
+		modsdldir="${tmpdir}/mods"
+		echo "Downloading mods to ${modsdldir}"
+		if [ ! -d "${modsdldir}" ]; then
+			mkdir -p "${modsdldir}"
+			fn_script_log "Creating temp mod download directory: ${modsdldir}"
+		else
+			fn_clear_tmp_mods
+		fi
+	else
+		# tompdir variable doesn't exist, LGSM is too old.
+		fn_print_fail "Your LGSM version is too old."
+		echo " * Please make a full update, including ${selfname} script."
+		core_exit.sh
+	fi
+	fn_mods_dir
+	# Get URL as ${mod_url} from mods_list.sh
+	fn_mod_get_url
+	# Download mod
+	# fn_fetch_file "${fileurl}" "${filedir}" "${filename}" "${executecmd}" "${run}" "${force}" "${md5}"
+	fn_fetch_file "${mod_url}" "${modsdldir}"
+	# Get mod filename
+	modfilename=$(basename "$(find "${modsdldir} -type f")")
+	# Check if variable is valid checking if file has been downloaded and exists
+	if [ ! -f "${modsdldir}/${modfilename}" ]; then
+		fn_print_fail "An issue occurred upon downloading ${currentmod_prettyname}"
+		core_exit.sh
+	fi
+	# Extract the mod
+	# fn_dl_extract "${filedir}" "${filename}" "${extractdir}"
+	fn_dl_extract "${modsdldir}" "${modfilename}" "${modsinstalldir}"
+	fn_clear_tmp_mods
+	fn_print_ok "${currentmod_prettyname} installed."
 }
 
 # Add the mod to the installed mods list
