@@ -1,5 +1,5 @@
 #!/bin/bash
-# LGSM mods_available.sh function
+# LGSM mods_list.sh function
 # Author: Daniel Gibbs
 # Contributor: UltimateByte
 # Website: https://gameservermanagers.com
@@ -12,25 +12,17 @@ local function_selfname="$(basename $(readlink -f "${BASH_SOURCE[0]}"))"
 check.sh
 
 # Define mods names
-# mod_name_name=( name shortname "Pretty Name" )
-mod_name_sourcemod=( sourcemod sm "SourceMod" )
-mod_name_metamod=( metamod mm "MetaMod" )
-mod_name_ulib=( ulib ub "Ulib" )
-mod_name_ulx=( ulx ux "ULX" )
-mod_name_rustoxide=( rustoxide ro "Oxide for Rust" )
-mod_name_hwoxide=( hwoxide ho "Oxide for Hurtworld" )
-mod_name_sdtdoxide=( sdtdoxide so "Oxide for 7 Days To Die" )
+# mod_info_name=( name shortname "Pretty Name" "URL" )
+mod_info_sourcemod=( sourcemod sm "SourceMod" "http://sourcemod.net/latest.php?os=Linux&version=1.8" )
+mod_info_metamod=( metamod mm "MetaMod" "http://cdn.probablyaserver.com/sourcemod/mmsource-1.10.6-linux.tar.gz" )
+mod_info_ulib=( ulib ub "Ulib" "https://codeload.github.com/TeamUlysses/ulib/zip/master" )
+mod_info_ulx=( ulx ux "ULX" "https://codeload.github.com/TeamUlysses/ulx/zip/master" )
+mod_info_rustoxide=( rustoxide ro "Oxide for Rust" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-Rust_Linux.zip" )
+mod_info_hwoxide=( hwoxide ho "Oxide for Hurtworld" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-Hurtworld_Linux.zip" )
+mod_info_sdtdoxide=( sdtdoxide so "Oxide for 7 Days To Die" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-7DaysToDie_Linux.zip" )
 
-# Define mods URLs
-fn_mods_urls(){
-	mod_url_sourcemod="http://sourcemod.net/latest.php?os=Linux&version=1.8"
-	mod_url_metamod="http://cdn.probablyaserver.com/sourcemod/mmsource-1.10.6-linux.tar.gz"
-	mod_url_ulib="https://codeload.github.com/TeamUlysses/ulib/zip/master"
-	mod_url_ulx="https://codeload.github.com/TeamUlysses/ulx/zip/master"
-	mod_url_rustoxide="https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-Rust_Linux.zip"
-	mod_url_hwoxide="https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-Hurtworld_Linux.zip"
-	mod_url_sdtdoxide="https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-7DaysToDie_Linux.zip"
-}
+# Set all mods info into one array for convenience
+mods_global_array=( ${mod_info_sourcemod[@]} ${mod_info_metamod[@]} ${mod_info_ulib[@]} ${mod_info_ulx[@]} ${mod_info_rustoxide[@]} ${mod_info_hwoxide[@]} ${mod_info_sdtdoxide[@]} )
 
 # Set install directories
 fn_mods_install_dir(){
@@ -49,7 +41,7 @@ elif [ "${engine}" == "source" ]; then
 fi
 }
 
-# Define mods commands
+# Define mods commands for installation
 fn_mods_commands(){
 	# Source Games
 	if [ "${engine}" == "source" ]&&[ "${gamename}" != "Garry's Mod" ]; then
@@ -97,21 +89,30 @@ fn_mods_commands(){
 # Prettify mod name
 # For output during mod installation & update
 fn_mod_name_prettify(){
-if [ "${currentmod}" == "sourcemod" ]||[ "${currentmod}" == "sourcemod" ]; then
-	currentmod_prettyname="${mod_name_sourcemod[2]}"
+if [ "${currentmod}" == "sourcemod" ]||[ "${currentmod}" == "sm" ]; then
+	currentmod_prettyname="${mod_info_sourcemod[2]}"
 elif [ "${currentmod}" == "metamod" ]||[ "${currentmod}" == "mm" ]; then
-	currentmod_prettyname="${mod_name_metamod[2]}"
+	currentmod_prettyname="${mod_info_metamod[2]}"
 elif [ "${currentmod}" == "ulib" ]||[ "${currentmod}" == "ub" ]; then
-	currentmod_prettyname="${mod_name_ulib[2]}"
+	currentmod_prettyname="${mod_info_ulib[2]}"
 elif [ "${currentmod}" == "ulx" ]||[ "${currentmod}" == "ux" ]; then
-	currentmod_prettyname="${mod_name_ulx[2]}"
+	currentmod_prettyname="${mod_info_ulx[2]}"
 elif [ "${currentmod}" == "rustoxide" ]||[ "${currentmod}" == "ro" ]; then
-	currentmod_prettyname="${mod_name_rustoxide[2]}"
+	currentmod_prettyname="${mod_info_rustoxide[2]}"
 elif [ "${currentmod}" == "hwtoxide" ]||[ "${currentmod}" == "ho" ]; then
-	currentmod_prettyname="${mod_name_hwoxide[2]}"
+	currentmod_prettyname="${mod_info_hwoxide[2]}"
 elif [ "${currentmod}" == "sdtdoxide" ]||[ "${currentmod}" == "so" ]; then
-	currentmod_prettyname="${mod_name_sdtdoxide[2]}"
+	currentmod_prettyname="${mod_info_sdtdoxide[2]}"
 fi
+}
+
+# Get URL from a mod prettyname
+fn_mod_get_url(){
+for ((index=0; index <= ${#mods_global_array[@]}; index++)); do
+	if [ "${mods_global_array[index]}" == "${currentmod_prettyname}" ]; then
+		mod_url="${mods_global_array[index+1]}"
+	fi
+done
 }
 
 fn_mods_install_dir
