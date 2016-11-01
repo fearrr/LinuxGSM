@@ -17,20 +17,14 @@ if [ -z "${modslist}" ]; then
 	core_exit.sh
 fi
 
-sn_script_log "Entering mods installation"
+fn_script_log "Entering mods installation"
 echo "================================="
 echo "${gamename} mods & addons installation"
-echo ""
-echo "Available mods:"
-echo "${modslist}"
-echo ""
-echo "(input exit to abort)"
-echo "Please, enter the name of the mod you wish to install:"
-echo "(input: exit to abort)"
 
 # Continue prompting as long as the user input doesn't correspond to an available mod
 while [[ ! " ${modsarray[@]} " =~ " ${moduserselect} " ]]
 do
+		echo ""
 		echo "Available mods:"
 		echo "${modslist}"	
 		echo ""
@@ -42,7 +36,7 @@ do
 				echo "Aborted."
                 core_exit.sh
 		elif [[ ! " ${modsarray[@]} " =~ " ${moduserselect} " ]]; then
-			fn_print_error2 "${moduserselect} is not a valid mod."
+			fn_print_error2_nl "${moduserselect} is not a valid mod."
         fi
 done
 

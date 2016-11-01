@@ -218,7 +218,7 @@ case "${getopt}" in
 		echo -e "${blue}debug\t${default}d  |See the output of the server directly to your terminal."
 		echo -e "${blue}install\t${default}i  |Install the server."
 		echo -e "${blue}auto-install\t${default}ai |Install the server, without prompts."
-		echo -e "${blue}mods-install\t${default}im |View and install available mods/addons."
+		echo -e "${blue}mods-install\t${default}mi |View and install available mods/addons."
 		echo -e "${blue}mods-update\t${default}mu |Update installed mods/addons."
 	} | column -s $'\t' -t
 	esac
@@ -492,7 +492,7 @@ case "${getopt}" in
 		echo -e "${blue}install\t${default}i  |Install the server."
 		echo -e "${blue}auto-install\t${default}ai |Install the server, without prompts."
 		echo -e "${blue}fastdl\t${default}fd |Generate or update a FastDL directory for your server."
-		echo -e "${blue}mods-install\t${default}im |View and install available mods/addons."
+		echo -e "${blue}mods-install\t${default}mi |View and install available mods/addons."
 		echo -e "${blue}mods-update\t${default}mu |Update installed mods/addons."
 	} | column -s $'\t' -t
 	esac
