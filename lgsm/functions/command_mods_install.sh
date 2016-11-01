@@ -71,7 +71,7 @@ echo "Mod URL is ${mod_url}"
 
 # Add the mod to the installed mods list
 fn_mod_add_list(){
-
+true;
 }
 
 fn_mods_dir
