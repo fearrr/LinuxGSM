@@ -10,3 +10,9 @@ local commandaction="Install_Mods"
 local function_selfname="$(basename $(readlink -f "${BASH_SOURCE[0]}"))"
 
 check.sh
+mods_list.sh
+
+echo "================================="
+echo "${gamename} mods installation"
+echo ""
+echo ""
