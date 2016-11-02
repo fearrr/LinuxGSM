@@ -25,7 +25,7 @@ elif [ ! -d "${systemdir}" ]; then
 fi
 }
 
-fn_mods_install_init()
+fn_mods_install_init(){
 	fn_script_log "Entering mods & addons installation"
 	echo "================================="
 	echo "${gamename} mods & addons installation"
@@ -83,7 +83,6 @@ fn_mod_installation(){
 	# Create or clear lgsm/tmp/mods dir 
 	if [ -n "${tmpdir}" ]; then
 		modsdldir="${tmpdir}/mods"
-		echo "Downloading mods to ${modsdldir}"
 		if [ ! -d "${modsdldir}" ]; then
 			mkdir -p "${modsdldir}"
 			fn_script_log "Creating temp mod download directory: ${modsdldir}"
@@ -101,7 +100,10 @@ fn_mod_installation(){
 	fn_mod_get_url
 	# Download mod
 	# fn_fetch_file "${fileurl}" "${filedir}" "${filename}" "${executecmd}" "${run}" "${force}" "${md5}"
-	fn_fetch_file "${mod_url}" "${modsdldir}"
+	fileurl="${mod_url}"
+	filedir="${modsdldir}"
+	echo "Downloading mods to ${modsdldir}"
+	fn_fetch_file "${fileurl}" "${filedir}"
 	# Get mod filename
 	modfilename=$(basename "$(find "${modsdldir} -type f")")
 	# Check if variable is valid checking if file has been downloaded and exists
@@ -111,14 +113,16 @@ fn_mod_installation(){
 	fi
 	# Extract the mod
 	# fn_dl_extract "${filedir}" "${filename}" "${extractdir}"
-	fn_dl_extract "${modsdldir}" "${modfilename}" "${modsinstalldir}"
+	filename="${modfilename}"
+	extractdir="${modsinstalldir}"
+	fn_dl_extract "${filedir}" "${filename}" "${extractdir}"
 	fn_clear_tmp_mods
 	fn_print_ok "${currentmod_prettyname} installed."
 }
 
 # Add the mod to the installed mods list
 fn_mod_add_list(){
-true;
+true; 
 }
 
 fn_mods_install_checks
