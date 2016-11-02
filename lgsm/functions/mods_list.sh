@@ -16,41 +16,43 @@ modsdldir="${tmpdir}/mods"
 
 # Define mods information (required)
 fn_mods_info(){
-	# REQUIRED: mod_info_name=( MOD name shortname "Pretty Name" "URL" filename "${installdir}" "Supported Engines" "Supported Games")
+	# REQUIRED: mod_info_name=( MOD name shortname "Pretty Name" "URL" filename "${installdir}" "Supported Engines" "Supported Games" "AUTHOR_URL")
 	# None of those values can be empty
-	# [ Array ID] 	| Usage
-	# [0] 		| MOD is a separator and is value [O] of the array
-	# [1] 		| name is the LGSM name for the mod
-	# [2] 		| shortname is the lgsm shortname for the mod
-	# [3] 		| "Pretty Name" is the common name people use to call the mod, should be in double quotes
-	# [4] 		| URL to download the file. Can be a variable defined in fn_mods_nasty_urls, double quote is for a better look
-	# [5] 		| The output filename, needed for fn_fetch_file 
-	# [6] 		| ${installdir} must use LGSM dir variables 
-	# [7] 		| List all "Supported Engines" according to LGSM ${engine} variable, separated with a coma, or use NA to ignore the value (use either [7] or [8], not both, not none)
-	# [8] 		| List all "Supported Games" according to LGSM ${gamename} variable, separated with a coma, or use NA to ignore the value (use either [7] or [8], not both, not none)
-	
+	# [ ID] 	| Usage
+	# [0] 	| MOD is a separator and is value [O] of the array
+	# [1] 	| name is the LGSM name for the mod
+	# [2] 	| shortname is the lgsm shortname for the mod
+	# [3] 	| "Pretty Name" is the common name people use to call the mod, should be in double quotes
+	# [4] 	| URL to download the file. Can be a variable defined in fn_mods_nasty_urls, double quote is for a better look
+	# [5] 	| The output filename, needed for fn_fetch_file 
+	# [6] 	| ${installdir} must use LGSM dir variables 
+	# [7] 	| List all "Supported Engines" according to LGSM ${engine} variable, separated with a coma, or use NA to ignore the value (use either [7] or [8], not both, not none)
+	# [8] 	| List all "Supported Games" according to LGSM ${gamename} variable, separated with a coma, or use NA to ignore the value (use either [7] or [8], not both, not none)
+	# [9]	| "AUTHOR_URL" is the author's website, displayed when chosing mods to install, double quote is for a better look
+
 	# Source mods
-	mod_info_sourcemod=( MOD sourcemod sm "SourceMod" "https://sm.alliedmods.net/smdrop/1.8/sourcemod-1.8.0-git5948-linux.tar.gz" sourcemod-1.8.0-git5948-linux.tar.gz "${systemdir}" "source" "NA" )
-	mod_info_metamod=( MOD metamod mm "MetaMod" "http://cdn.probablyaserver.com/sourcemod/mmsource-1.10.6-linux.tar.gz" mmsource-1.10.6-linux.tar.gz "${systemdir}" "source" "NA" )
+	mod_info_sourcemod=( MOD sourcemod sm "SourceMod" "https://sm.alliedmods.net/smdrop/1.8/sourcemod-1.8.0-git5948-linux.tar.gz" sourcemod-1.8.0-git5948-linux.tar.gz "${systemdir}" "source" "NA" "http://www.sourcemod.net/" )
+	mod_info_metamod=( MOD metamod mm "MetaMod" "http://cdn.probablyaserver.com/sourcemod/mmsource-1.10.6-linux.tar.gz" mmsource-1.10.6-linux.tar.gz "${systemdir}" "source" "NA" "https://www.sourcemm.net/" )
 	# Garry's Mod Addons
-	mod_info_ulib=( MOD ulib ub "ULib" "https://codeload.github.com/TeamUlysses/ulib/zip/master" ulib-master.zip "${systemdir}/addons" "NA" "Garry's Mod" )
-	mod_info_ulx=( MOD ulx ux "ULX" "https://codeload.github.com/TeamUlysses/ulx/zip/master" ulx-master.zip "${systemdir}/addons" "NA" "Garry's Mod ")
+	mod_info_ulib=( MOD ulib ub "ULib" "https://codeload.github.com/TeamUlysses/ulib/zip/master" ulib-master.zip "${systemdir}/addons" "NA" "Garry's Mod" "http://ulyssesmod.net/" )
+	mod_info_ulx=( MOD ulx ux "ULX" "https://codeload.github.com/TeamUlysses/ulx/zip/master" ulx-master.zip "${systemdir}/addons" "NA" "Garry's Mod" "http://ulyssesmod.net/" )
 	# Oxidemod
-	mod_info_rustoxide=( MOD rustoxide ro "Oxide for Rust" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-Rust_Linux.zip" Oxide-Rust_Linux.zip "${systemdir}" "NA" "Rust" )
-	mod_info_hwoxide=( MOD hwoxide ho "Oxide for Hurtworld" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-Hurtworld_Linux.zip" Oxide-Hurtworld_Linux.zip "${systemdir}" "NA" "Hurtworld" )
-	mod_info_sdtdoxide=( MOD sdtdoxide so "Oxide for 7 Days To Die" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-7DaysToDie_Linux.zip" Oxide-7DaysToDie_Linux.zip "${systemdir}" "NA" "7 Days To Die" )
+	mod_info_rustoxide=( MOD rustoxide ro "Oxide for Rust" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-Rust_Linux.zip" Oxide-Rust_Linux.zip "${systemdir}" "NA" "Rust" "http://oxidemod.org/downloads/oxide-for-rust.1659/" )
+	mod_info_hwoxide=( MOD hwoxide ho "Oxide for Hurtworld" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-Hurtworld_Linux.zip" Oxide-Hurtworld_Linux.zip "${systemdir}" "NA" "Hurtworld" "http://oxidemod.org/downloads/oxide-for-hurtworld.1332/" )
+	mod_info_sdtdoxide=( MOD sdtdoxide so "Oxide for 7 Days To Die" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-7DaysToDie_Linux.zip" Oxide-7DaysToDie_Linux.zip "${systemdir}" "NA" "7 Days To Die" "http://oxidemod.org/downloads/oxide-for-7-days-to-die.813/" )
 
 	# REQUIRED: Set all mods info into one array for convenience
 	mods_global_array=( ${mod_info_sourcemod[@]} ${mod_info_metamod[@]} ${mod_info_ulib[@]} ${mod_info_ulx[@]} ${mod_info_rustoxide[@]} ${mod_info_hwoxide[@]} ${mod_info_sdtdoxide[@]} )
 }
 
-# Get URL for mods that don't provide a good one (optional)
+# Get a proper URL for mods that don't provide a good one (optional)
 fn_mods_nasty_urls(){
 # Sourcemod & metamod will come here
 true;
 }
 
 # Define mods commands for installation
+# DEV NOTE: This needs to be gotten from the array
 fn_mods_commands(){
 	# Source Games
 	if [ "${engine}" == "source" ]&&[ "${gamename}" != "Garry's Mod" ]; then
@@ -99,13 +101,18 @@ for ((index=0; index <= ${#mods_global_array[@]}; index++)); do
 	# When entry is found
 	if [ "${mods_global_array[index]}" == "${currentmod}" ]; then
 		# Go back to the previous "MOD" separator
-		for ((index <= ${#mods_global_array[@]}; index--)); do
+		for ((index=index; index <= ${#mods_global_array[@]}; index--)); do
 			# When "MOD" is found
 			if [ "${mods_global_array[index]}" == "MOD" ]; then
-			# Pretty name is then the third next value
-			currentmod_prettyname="${mods_global_array[index+3]}"
+				# Pretty name is then the third next value
+				currentmod_prettyname="${mods_global_array[index+3]}"
+				break
 			fi
 		done
+	fi
+	# Exit the loop if prettyname is found
+	if [ -n "${currentmod_prettyname}" ]; then
+			break
 	fi
 done
 }
