@@ -12,24 +12,6 @@ local function_selfname="$(basename $(readlink -f "${BASH_SOURCE[0]}"))"
 check.sh
 mods_list.sh
 
-# Requirements to install mods
-fn_mods_install_checks(){
-	# If no mods are found
-	if [ -z "${modslist}" ]; then
-		fn_print_fail "No mods are currently available for ${gamename}."
-		core_exit.sh
-	# If systemdir doesn't exist, then the game isn't installed
-	elif [ ! -d "${systemdir}" ]; then
-		fn_print_fail "${gamename} needs to be installed first."
-		core_exit.sh
-	# If tompdir variable doesn't exist, LGSM is too old
-	elif [ -z "${tmpdir}" ]; then
-			fn_print_fail "Your LGSM version is too old."
-			echo " * Please make a full update, including ${selfname} script."
-			core_exit.sh
-	fi
-}
-
 fn_mods_install_init(){
 	fn_script_log "Entering mods & addons installation"
 	echo "================================="
@@ -82,17 +64,17 @@ fn_mods_dir(){
 
 # Clear mod download directory so that there is only one file in it since we don't the file name and extention
 fn_clear_tmp_mods(){
-	if [ -d "${modsdldir}" ]; then
-		rm -r "${modsdldir}"
-		fn_script_log "Clearing temp mod download directory: ${modsdldir}"
+	if [ -d "${modstmpdir}" ]; then
+		rm -r "${modstmpdir}"
+		fn_script_log "Clearing temp mod download directory: ${modstmpdir}"
 	fi
 }
 
 # Create tmp download mod directory
-fn_mod_dldir(){
-	if [ ! -d "${modsdldir}" ]; then
-			mkdir -p "${modsdldir}"
-			fn_script_log "Creating temp mod download directory: ${modsdldir}"
+fn_mods_tmpdir(){
+	if [ ! -d "${modstmpdir}" ]; then
+			mkdir -p "${modstmpdir}"
+			fn_script_log "Creating temp mod download directory: ${modstmpdir}"
 	fi
 }
 
@@ -100,7 +82,7 @@ fn_mod_dldir(){
 fn_mod_installation(){
 	# Clear lgsm/tmp/mods dir if exists then recreate it
 	fn_clear_tmp_mods
-	fn_mod_dldir
+	fn_mods_tmpdir
 	# Get mod destination as ${mod_destination} from mods_list.sh
 	fn_mods_dir
 	# Get URL as ${mod_url} from mods_list.sh
@@ -110,12 +92,12 @@ fn_mod_installation(){
 	# Download mod
 	# fn_fetch_file "${fileurl}" "${filedir}" "${filename}" "${executecmd}" "${run}" "${force}" "${md5}"
 	fileurl="${mod_url}"
-	filedir="${modsdldir}"
+	filedir="${modstmpdir}"
 	filename="${mod_filename}" 
-	fn_script_log "Downloading mods to ${modsdldir}"
+	fn_script_log "Downloading mods to ${modstmpdir}"
 	fn_fetch_file "${fileurl}" "${filedir}" "${filename}"
 	# Check if variable is valid checking if file has been downloaded and exists
-	if [ ! -f "${modsdldir}/${mod_filename}" ]; then
+	if [ ! -f "${modstmpdir}/${mod_filename}" ]; then
 		fn_print_fail "An issue occurred upon downloading ${currentmod_prettyname}"
 		core_exit.sh
 	fi
@@ -130,7 +112,20 @@ fn_mod_installation(){
 
 # Add the mod to the installed mods list
 fn_mod_add_list(){
-true; 
+	# Create lgsm/data directory
+	if [ ! -d  "${modslockdir}" ]; then
+		mkdir -p "${modslockdir}"
+	fi
+	# Create lgsm/data/${modslockfile}
+	if [ ! -f "${modslockfilefullpath}" ]; then
+		touch "${modslockfilefullpath}"
+	fi
+	# Input mod name to lockfile
+	if [ -n "$(cat "${modslockfilefullpath}" | grep "${currentmod_prettyname")" ]; then
+		echo "${currentmod_prettyname" >> "${modslockfilefullpath}"
+	fi
+	
+true;
 }
 
 fn_mods_install_checks

@@ -12,7 +12,10 @@ local function_selfname="$(basename $(readlink -f "${BASH_SOURCE[0]}"))"
 check.sh
 
 # Useful variables
-modsdldir="${tmpdir}/mods"
+modstmpdir="${tmpdir}/mods"
+modslockdir="${lgsmdir}/data"
+modslockfile="mods-installed.txt"
+modslockfilefullpath="${modslockdir}/${modslockfile}"
 
 # Define mods information (required)
 fn_mods_info(){
@@ -154,6 +157,25 @@ for ((index=0; index <= ${#mods_global_array[@]}; index++)); do
 done
 }
 
+# Requirements to install mods
+fn_mods_install_checks(){
+	# If no mods are found
+	if [ -z "${modslist}" ]; then
+		fn_print_fail "No mods are currently available for ${gamename}."
+		core_exit.sh
+	# If systemdir doesn't exist, then the game isn't installed
+	elif [ ! -d "${systemdir}" ]; then
+		fn_print_fail "${gamename} needs to be installed first."
+		core_exit.sh
+	# If tompdir variable doesn't exist, LGSM is too old
+	elif [ -z "${tmpdir}" ]||[ -z "${lgsmdir}" ]; then
+			fn_print_fail "Your LGSM version is too old."
+			echo " * Please make a full update, including ${selfname} script."
+			core_exit.sh
+	fi
+}
+
+fn_mods_install_checks
 fn_mods_commands
 fn_mods_nasty_urls
 fn_mods_info
