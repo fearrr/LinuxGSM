@@ -56,7 +56,7 @@ true;
 
 # Define mods commands for installation
 # DEV NOTE: This needs to be gotten from the array
-fn_mods_commands(){
+fn_mods_available(){
 	# Source Games
 	if [ "${engine}" == "source" ]&&[ "${gamename}" != "Garry's Mod" ]; then
 		modsarray=( sm sourcemod mm metamod )
@@ -175,7 +175,7 @@ fn_mods_install_checks(){
 	fi
 }
 
+fn_mods_available
 fn_mods_install_checks
-fn_mods_commands
 fn_mods_nasty_urls
 fn_mods_info

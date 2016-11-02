@@ -121,8 +121,8 @@ fn_mod_add_list(){
 		touch "${modslockfilefullpath}"
 	fi
 	# Input mod name to lockfile
-	if [ -n "$(cat "${modslockfilefullpath}" | grep "${currentmod_prettyname")" ]; then
-		echo "${currentmod_prettyname" >> "${modslockfilefullpath}"
+	if [ ! -n "$(cat "${modslockfilefullpath}" | grep "${currentmod_prettyname}")" ]; then
+		echo "${currentmod_prettyname}" >> "${modslockfilefullpath}"
 	fi
 	
 true;
