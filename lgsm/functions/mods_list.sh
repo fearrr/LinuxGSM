@@ -27,8 +27,8 @@ fn_mods_info(){
 	# [2] 	| shortname is the lgsm shortname for the mod
 	# [3] 	| "Pretty Name" is the common name people use to call the mod, should be in double quotes
 	# [4] 	| URL to download the file. Can be a variable defined in fn_mods_nasty_urls, double quote is for a better look
-	# [5] 	| The output filename, needed for fn_fetch_file 
-	# [6] 	| ${installdir} must use LGSM dir variables 
+	# [5] 	| The output filename, needed for fn_fetch_file
+	# [6] 	| ${installdir} must use LGSM dir variables
 	# [7] 	| List all "Supported Engines" according to LGSM ${engine} variable, separated with a coma, or use NA to ignore the value (use either [7] or [8], not both, not none)
 	# [8] 	| List all "Supported Games" according to LGSM ${gamename} variable, separated with a coma, or use NA to ignore the value (use either [7] or [8], not both, not none)
 	# [9]	| "AUTHOR_URL" is the author's website, displayed when chosing mods to install, double quote is for a better look
@@ -67,7 +67,7 @@ fn_mods_available(){
 	fi
 	# Garry's Mod
 	if [ "${gamename}" == "Garry's Mod" ]; then
-		modsarray=( ulib ub ulx ux)
+		modsarray=( ulib ub ulx ux )
 		read -r -d '' modslist <<- End
 			ulib | ub | http://ulyssesmod.net/
 			ulx | ux | http://ulyssesmod.net/
