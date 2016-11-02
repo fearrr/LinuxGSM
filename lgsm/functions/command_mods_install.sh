@@ -112,7 +112,7 @@ fn_mod_installation(){
 	fileurl="${mod_url}"
 	filedir="${modsdldir}"
 	filename="${mod_filename}" 
-	echo "Downloading mods to ${modsdldir}"
+	fn_print_dots "Downloading mods to ${modsdldir}"
 	fn_fetch_file "${fileurl}" "${filedir}" "${filename}"
 	# Check if variable is valid checking if file has been downloaded and exists
 	if [ ! -f "${modsdldir}/${mod_filename}" ]; then
