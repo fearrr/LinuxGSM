@@ -13,13 +13,13 @@ check.sh
 
 # Define mods information (required)
 # mod_info_name=( name shortname "Pretty Name" "URL" )
-mod_info_sourcemod=( sourcemod sm "SourceMod" "http://sourcemod.net/latest.php?os=Linux&version=1.8" )
-mod_info_metamod=( metamod mm "MetaMod" "http://cdn.probablyaserver.com/sourcemod/mmsource-1.10.6-linux.tar.gz" )
-mod_info_ulib=( ulib ub "Ulib" "https://codeload.github.com/TeamUlysses/ulib/zip/master" )
-mod_info_ulx=( ulx ux "ULX" "https://codeload.github.com/TeamUlysses/ulx/zip/master" )
-mod_info_rustoxide=( rustoxide ro "Oxide for Rust" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-Rust_Linux.zip" )
-mod_info_hwoxide=( hwoxide ho "Oxide for Hurtworld" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-Hurtworld_Linux.zip" )
-mod_info_sdtdoxide=( sdtdoxide so "Oxide for 7 Days To Die" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-7DaysToDie_Linux.zip" )
+mod_info_sourcemod=( sourcemod sm "SourceMod" "http://sourcemod.net/latest.php?os=Linux&version=1.8" sourcemod.tar.gz )
+mod_info_metamod=( metamod mm "MetaMod" "http://cdn.probablyaserver.com/sourcemod/mmsource-1.10.6-linux.tar.gz" mmsource-1.10.6-linux.tar.gz )
+mod_info_ulib=( ulib ub "Ulib" "https://codeload.github.com/TeamUlysses/ulib/zip/master" ulib-master.zip )
+mod_info_ulx=( ulx ux "ULX" "https://codeload.github.com/TeamUlysses/ulx/zip/master" ulx-master.zip )
+mod_info_rustoxide=( rustoxide ro "Oxide for Rust" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-Rust_Linux.zip" Oxide-Rust_Linux.zip )
+mod_info_hwoxide=( hwoxide ho "Oxide for Hurtworld" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-Hurtworld_Linux.zip" Oxide-Hurtworld_Linux.zip )
+mod_info_sdtdoxide=( sdtdoxide so "Oxide for 7 Days To Die" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-7DaysToDie_Linux.zip" Oxide-7DaysToDie_Linux.zip )
 
 # Set all mods info into one array for convenience (required)
 mods_global_array=( ${mod_info_sourcemod[@]} ${mod_info_metamod[@]} ${mod_info_ulib[@]} ${mod_info_ulx[@]} ${mod_info_rustoxide[@]} ${mod_info_hwoxide[@]} ${mod_info_sdtdoxide[@]} )
@@ -53,6 +53,18 @@ for ((index=0; index <= ${#mods_global_array[@]}; index++)); do
 	if [ "${mods_global_array[index]}" == "${currentmod_prettyname}" ]; then
 		# prettyname found, next value is URL
 		mod_url="${mods_global_array[index+1]}"
+	fi
+done
+}
+
+# Gets archive filename from mod prettyname
+fn_mod_get_filename(){
+# Look through the array
+for ((index=0; index <= ${#mods_global_array[@]}; index++)); do
+	# When prettyname matches
+	if [ "${mods_global_array[index]}" == "${currentmod_prettyname}" ]; then
+		# prettyname found, next next value is URL
+		mod_filename="${mods_global_array[index+2]}"
 	fi
 done
 }

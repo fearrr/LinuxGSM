@@ -98,22 +98,23 @@ fn_mod_installation(){
 	fn_mods_dir
 	# Get URL as ${mod_url} from mods_list.sh
 	fn_mod_get_url
+	# Get mod filename from mods_list.sh function
+	fn_mod_get_filename
 	# Download mod
 	# fn_fetch_file "${fileurl}" "${filedir}" "${filename}" "${executecmd}" "${run}" "${force}" "${md5}"
 	fileurl="${mod_url}"
 	filedir="${modsdldir}"
+	filename="${mod_filename}" 
 	echo "Downloading mods to ${modsdldir}"
-	fn_fetch_file "${fileurl}" "${filedir}"
-	# Get mod filename
-	modfilename=$(basename "$(find "${modsdldir} -type f")")
+	fn_fetch_file "${fileurl}" "${filedir}" "${filename}"
 	# Check if variable is valid checking if file has been downloaded and exists
-	if [ ! -f "${modsdldir}/${modfilename}" ]; then
+	if [ ! -f "${modsdldir}/${mod_filename}" ]; then
 		fn_print_fail "An issue occurred upon downloading ${currentmod_prettyname}"
 		core_exit.sh
 	fi
 	# Extract the mod
 	# fn_dl_extract "${filedir}" "${filename}" "${extractdir}"
-	filename="${modfilename}"
+	filename="${mod_filename}"
 	extractdir="${modsinstalldir}"
 	fn_dl_extract "${filedir}" "${filename}" "${extractdir}"
 	fn_clear_tmp_mods
