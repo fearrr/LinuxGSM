@@ -115,10 +115,11 @@ fn_mod_installation(){
 	# Extract the mod
 	# fn_dl_extract "${filedir}" "${filename}" "${extractdir}"
 	filename="${mod_filename}"
-	extractdir="${modsinstalldir}"
+	# Get destination dir with fn_mods_install_dir from mods_list.sh
+	extractdir="${mod_destination}"
 	fn_dl_extract "${filedir}" "${filename}" "${extractdir}"
 	fn_clear_tmp_mods
-	fn_print_ok "${currentmod_prettyname} installed."
+	fn_print_ok_nl "${currentmod_prettyname} installed."
 }
 
 # Add the mod to the installed mods list
