@@ -11,6 +11,9 @@ local function_selfname="$(basename $(readlink -f "${BASH_SOURCE[0]}"))"
 
 check.sh
 
+# Useful variables
+modsdldir="${tmpdir}/mods"
+
 # Define mods information (required)
 # mod_info_name=( name shortname "Pretty Name" "URL" filename "installdir" )
 mod_info_sourcemod=( sourcemod sm "SourceMod" "http://sourcemod.net/latest.php?os=Linux&version=1.8" sourcemod.tar.gz "${systemdir}/addons" )

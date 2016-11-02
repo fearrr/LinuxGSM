@@ -12,17 +12,22 @@ local function_selfname="$(basename $(readlink -f "${BASH_SOURCE[0]}"))"
 check.sh
 mods_list.sh
 
+# Requirements to install mods
 fn_mods_install_checks(){
-# Conditions to install mods: 
-# If no mods are found
-if [ -z "${modslist}" ]; then
-	fn_print_fail "No mods are currently available for ${gamename}."
-	core_exit.sh
-# If systemdir doesn't exist, then the game isn't installed
-elif [ ! -d "${systemdir}" ]; then
-	fn_print_fail "${gamename} needs to be installed first."
-	core_exit.sh
-fi
+	# If no mods are found
+	if [ -z "${modslist}" ]; then
+		fn_print_fail "No mods are currently available for ${gamename}."
+		core_exit.sh
+	# If systemdir doesn't exist, then the game isn't installed
+	elif [ ! -d "${systemdir}" ]; then
+		fn_print_fail "${gamename} needs to be installed first."
+		core_exit.sh
+	# If tompdir variable doesn't exist, LGSM is too old
+	elif [ -z "${tmpdir}" ]; then
+			fn_print_fail "Your LGSM version is too old."
+			echo " * Please make a full update, including ${selfname} script."
+			core_exit.sh
+	fi
 }
 
 fn_mods_install_init(){
@@ -56,49 +61,51 @@ fn_mods_install_init(){
 	# Gives a pretty name to the user
 	currentmod="${moduserselect}"
 	fn_mod_name_prettify
-	fn_print_dots_nl "Installing ${currentmod_prettyname}"
+	fn_print_dots "Installing ${currentmod_prettyname}"
+	sleep 1
 	fn_script_log "Installing ${currentmod_prettyname}."
 }
 
 # Create mods directory if it doesn't exist
 # Assuming the game is already installed as mods_list.sh checked for it.
 fn_mods_dir(){
-if [ ! -d "${modsinstalldir}" ]; then
-	fn_script_log_info "Creating mods directory: ${modsinstalldir}"
-	fn_print_dots "Creating mods directory"
-	sleep 1
-	mkdir -p "${modsinstalldir}"
-	fn_print_ok "Created mods directory"
-fi
+	# Get destination dir with fn_mods_install_dir from mods_list.sh
+	fn_mods_install_dir
+	if [ ! -d "${mod_destination}" ]; then
+		fn_script_log_info "Creating mods directory: ${mod_destination}"
+		fn_print_dots "Creating mods directory"
+		sleep 1
+		mkdir -p "${mod_destination}"
+		fn_print_ok "Created mods directory"
+	fi
 }
 
 # Clear mod download directory so that there is only one file in it since we don't the file name and extention
 fn_clear_tmp_mods(){
-	rm -r "${modsdldir}/*"
-	fn_script_log "Clearing temp mod download directory: ${modsdldir}"
+	if [ -d "${modsdldir}" ]; then
+		rm -r "${modsdldir}"
+		fn_script_log "Clearing temp mod download directory: ${modsdldir}"
+	fi
+}
+
+# Create tmp download mod directory
+fn_mod_dldir(){
+	if [ ! -d "${modsdldir}" ]; then
+			mkdir -p "${modsdldir}"
+			fn_script_log "Creating temp mod download directory: ${modsdldir}"
+	fi
 }
 
 # Download and extract the mod using core_dl.sh
 fn_mod_installation(){
-	# Create or clear lgsm/tmp/mods dir 
-	if [ -n "${tmpdir}" ]; then
-		modsdldir="${tmpdir}/mods"
-		if [ ! -d "${modsdldir}" ]; then
-			mkdir -p "${modsdldir}"
-			fn_script_log "Creating temp mod download directory: ${modsdldir}"
-		else
-			fn_clear_tmp_mods
-		fi
-	else
-		# tompdir variable doesn't exist, LGSM is too old.
-		fn_print_fail "Your LGSM version is too old."
-		echo " * Please make a full update, including ${selfname} script."
-		core_exit.sh
-	fi
+	# Clear lgsm/tmp/mods dir if exists then recreate it
+	fn_clear_tmp_mods
+	fn_mod_dldir
+	# Get mod destination as ${mod_destination} from mods_list.sh
 	fn_mods_dir
 	# Get URL as ${mod_url} from mods_list.sh
 	fn_mod_get_url
-	# Get mod filename from mods_list.sh function
+	# Get mod filename as "${mod_filename} from mods_list.sh function
 	fn_mod_get_filename
 	# Download mod
 	# fn_fetch_file "${fileurl}" "${filedir}" "${filename}" "${executecmd}" "${run}" "${force}" "${md5}"
@@ -115,7 +122,6 @@ fn_mod_installation(){
 	# Extract the mod
 	# fn_dl_extract "${filedir}" "${filename}" "${extractdir}"
 	filename="${mod_filename}"
-	# Get destination dir with fn_mods_install_dir from mods_list.sh
 	extractdir="${mod_destination}"
 	fn_dl_extract "${filedir}" "${filename}" "${extractdir}"
 	fn_clear_tmp_mods
