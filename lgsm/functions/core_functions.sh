@@ -190,6 +190,11 @@ functionfile="${FUNCNAME}"
 fn_fetch_function
 }
 
+command_mods_remove.sh(){
+functionfile="${FUNCNAME}"
+fn_fetch_function
+}
+
 command_fastdl.sh(){
 functionfile="${FUNCNAME}"
 fn_fetch_function
