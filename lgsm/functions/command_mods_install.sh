@@ -76,7 +76,7 @@ fn_mods_dir(){
 		fn_print_dots "Creating mods directory"
 		sleep 1
 		mkdir -p "${mod_destination}"
-		fn_print_ok "Created mods directory"
+		fn_print_ok_nl "Created mods directory"
 	fi
 }
 
@@ -112,7 +112,7 @@ fn_mod_installation(){
 	fileurl="${mod_url}"
 	filedir="${modsdldir}"
 	filename="${mod_filename}" 
-	fn_print_dots "Downloading mods to ${modsdldir}"
+	fn_script_log "Downloading mods to ${modsdldir}"
 	fn_fetch_file "${fileurl}" "${filedir}" "${filename}"
 	# Check if variable is valid checking if file has been downloaded and exists
 	if [ ! -f "${modsdldir}/${mod_filename}" ]; then
