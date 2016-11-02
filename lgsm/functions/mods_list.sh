@@ -18,7 +18,7 @@ modsdldir="${tmpdir}/mods"
 # mod_info_name=( name shortname "Pretty Name" "URL" filename "installdir" )
 mod_info_sourcemod=( sourcemod sm "SourceMod" "http://sourcemod.net/latest.php?os=Linux&version=1.8" sourcemod.tar.gz "${systemdir}/addons" )
 mod_info_metamod=( metamod mm "MetaMod" "http://cdn.probablyaserver.com/sourcemod/mmsource-1.10.6-linux.tar.gz" mmsource-1.10.6-linux.tar.gz "${systemdir}")
-mod_info_ulib=( ulib ub "Ulib" "https://codeload.github.com/TeamUlysses/ulib/zip/master" ulib-master.zip "${systemdir}/addons" )
+mod_info_ulib=( ulib ub "ULib" "https://codeload.github.com/TeamUlysses/ulib/zip/master" ulib-master.zip "${systemdir}/addons" )
 mod_info_ulx=( ulx ux "ULX" "https://codeload.github.com/TeamUlysses/ulx/zip/master" ulx-master.zip "${systemdir}/addons" )
 mod_info_rustoxide=( rustoxide ro "Oxide for Rust" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-Rust_Linux.zip" Oxide-Rust_Linux.zip "${systemdir}/addons" )
 mod_info_hwoxide=( hwoxide ho "Oxide for Hurtworld" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-Hurtworld_Linux.zip" Oxide-Hurtworld_Linux.zip "${systemdir}/addons" )
@@ -29,6 +29,7 @@ mods_global_array=( ${mod_info_sourcemod[@]} ${mod_info_metamod[@]} ${mod_info_u
 
 # Prettify mod name
 # Required for output during mod installation & update and for getting the URL
+# Getting it from third value from mod_info_name array noted [2]
 fn_mod_name_prettify(){
 if [ "${currentmod}" == "sourcemod" ]||[ "${currentmod}" == "sm" ]; then
 	currentmod_prettyname="${mod_info_sourcemod[2]}"
