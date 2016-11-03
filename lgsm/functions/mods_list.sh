@@ -198,7 +198,7 @@ done
 # Requirements to install mods
 fn_mods_install_checks(){
 	# If no mods are found
-	if [ -z "${modslist}" ]; then
+	if [ -z "${compatiblemodslist}" ]; then
 		fn_print_fail "No mods are currently available for ${gamename}."
 		core_exit.sh
 	# If systemdir doesn't exist, then the game isn't installed
