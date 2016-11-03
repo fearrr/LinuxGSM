@@ -46,7 +46,7 @@ fn_mods_info(){
 	mod_info_sdtdoxide=( MOD sdtdoxide so "Oxide for 7 Days To Die" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-7DaysToDie_Linux.zip" Oxide-7DaysToDie_Linux.zip "${systemdir}" "NA" "7 Days To Die;" "NA" "http://oxidemod.org/downloads/oxide-for-7-days-to-die.813/" )
 
 	# REQUIRED: Set all mods info into one array for convenience
-	mods_global_array=( ${mod_info_sourcemod[@]} ${mod_info_metamod[@]} ${mod_info_ulib[@]} ${mod_info_ulx[@]} ${mod_info_rustoxide[@]} ${mod_info_hwoxide[@]} ${mod_info_sdtdoxide[@]} )
+	mods_global_array=( "${mod_info_sourcemod[@]}" "${mod_info_metamod[@]}" "${mod_info_ulib[@]}" "${mod_info_ulx[@]}" "${mod_info_rustoxide[@]}" "${mod_info_hwoxide[@]}" "${mod_info_sdtdoxide[@]}" )
 }
 
 # Get a proper URL for mods that don't provide a good one (optional)
@@ -64,7 +64,7 @@ if [ -z "$index" ]; then
 fi
 	indexmodseparator=$((index+0))
 	indexmodname=$((index+1))
-	indexmodshortname=$((index+2)
+	indexmodshortname=$((index+2))
 	indexmodprettyname=$((index+3))
 	indexmodurl=$((index+4))
 	indexmodfilename=$((index+5))
@@ -114,20 +114,17 @@ fn_compatible_mod_games(){
 #fn_compatible_mod_engines(){
 #}
 
-# Define mods commands for installation
-# DEV NOTE: This needs to be gotten from the array
+# Define mods commands and compatibility for installation
 fn_mods_available(){
 	# Find compatible games
 	# Per game name
 	# First, reset variables
 	compatiblemodslist=""
 	availablemodscommands=""
-	# Find entry in global array
-	for ((index=0; index <= ${#mods_global_array[@]}; index++)); do
-		# Put current variable into arrayvalue variable
-		arrayvalue="${mods_global_array[index]}"
+	# Find a separator
+	for ((index="0"; index <= ${#mods_global_array[@]}; index++)); do
 		# If current value is a separator; then we can find any info
-		if [ "${arrayvalue}" == "${modseparator}" ]; then
+		if [ "${mods_global_array[index]}" == "${modseparator}" ]; then
 			# Set mod values
 			fn_mod_info
 			# Test if game is compatible
