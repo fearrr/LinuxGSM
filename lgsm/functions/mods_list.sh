@@ -91,9 +91,9 @@ fn_compatible_mod_games(){
 	# Reset test value
 	modcompatiblegame="0"
 	# Test all subvalue of "modgames" using the ";" separator
-	for ((gamevarindex=0; gamevarindex <= "$(echo "${modgames}" | awk -F ';' '{ print NF }')"; gamevarindex++)); do
+	for ((gamevarindex=1; gamevarindex < "$(echo "${modgames}" | awk -F ';' '{ print NF }')"; gamevarindex++)); do
 		# Put current game name into modtest variable
-		gamemodtest="$("${modgames}" | awk -F ';' '{ print "${gamevarindex}" }')"
+		gamemodtest="$( echo "${modgames}" | awk -F ';' -v x=${gamevarindex} '{ print $x }' )"
 		# If game name matches
 		if [ "${gamemodtest}" == "${gamename}" ]; then
 			# Mod is compatible !
