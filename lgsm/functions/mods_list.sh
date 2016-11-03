@@ -90,8 +90,9 @@ modsite="${mods_global_array[index+indexmodsite]}"
 fn_compatible_mod_games(){
 	# Reset test value
 	modcompatiblegame="0"
+	gamesamount="$(echo "${modgames}" | awk -F ';' '{ print NF }')"
 	# Test all subvalue of "modgames" using the ";" separator
-	for ((gamevarindex=1; gamevarindex < "$(echo "${modgames}" | awk -F ';' '{ print NF }')"; gamevarindex++)); do
+	for ((gamevarindex=1; gamevarindex < ${gamesamount}; gamevarindex++)); do
 		# Put current game name into modtest variable
 		gamemodtest="$( echo "${modgames}" | awk -F ';' -v x=${gamevarindex} '{ print $x }' )"
 		# If game name matches
