@@ -111,8 +111,9 @@ fn_compatible_mod_games(){
 fn_mods_available(){
 	# Find compatible games
 	# Per game name
-	# First, reset compatiblemodslist
+	# First, reset variables
 	compatiblemodslist=""
+	availablemodscommands=""
 	# Find entry in global array
 	for ((index=0; index <= ${#mods_global_array[@]}; index++)); do
 		# Put current variable into arrayvalue variable
@@ -125,7 +126,8 @@ fn_mods_available(){
 			fn_compatible_mod_games
 			# If game is compatible
 			if [ "${gamemodtest}" == "1" ]; then
-				compatiblemodslist="${compatiblemodslist}${modprettyname} | ${indexmodname} | ${modshortname} | ${modsite}\n"
+				compatiblemodslist="${compatiblemodslist}${modprettyname} | ${modname} | ${modshortname} | ${modsite}\n"
+				availablemodscommands="( ${availablemodscommands[@]} ${modprettyname} ${modname} ${modshortname} )"
 			fi
 		fi
 	done

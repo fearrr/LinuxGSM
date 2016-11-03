@@ -18,7 +18,7 @@ fn_mods_install_init(){
 	echo "${gamename} mods & addons installation"
 
 	# Keep prompting as long as the user input doesn't correspond to an available mod
-	while [[ ! " ${modsarray[@]} " =~ " ${currentmod} " ]]
+	while [[ ! " ${availablemodscommands[@]} " =~ " ${currentmod} " ]]
 	do
 			echo ""
 			echo "Available mods:"
@@ -34,7 +34,7 @@ fn_mods_install_init(){
 					echo "Aborted."
 					core_exit.sh
 			# Supplementary output upon invalid user input 
-			elif [[ ! " ${modsarray[@]} " =~ " ${currentmod} " ]]; then
+			elif [[ ! " ${availablemodscommands[@]} " =~ " ${currentmod} " ]]; then
 				fn_print_error2_nl "${currentmod} is not a valid mod."
 				echo " * Enter a valid mod or input exit to abort."
 			fi
