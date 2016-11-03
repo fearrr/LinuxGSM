@@ -55,34 +55,36 @@ fn_mods_nasty_urls(){
 true;
 }
 
-# Define index number variables with nice names
-indexmodseparator="0"
-indexmodname="1"
-indexmodshortname="2"
-indexmodprettyname="3"
-indexmodurl="4"
-indexmodfilename="5"
-indexmodinstalldir="6"
-indexmodengines="7"
-indexmodgames="8"
-indexmodnotgames="9"
-indexmodsite="10"
-
+# Define variables relative to index
+fn_var_rel_index(){
+	indexmodseparator=((index+0))
+	indexmodname=((index+1))
+	indexmodshortname=((index+2)
+	indexmodprettyname=((index+3))
+	indexmodurl=((index+4))
+	indexmodfilename=((index+5))
+	indexmodinstalldir=((index+6))
+	indexmodengines=((index+7))
+	indexmodgames=((index+8))
+	indexmodnotgames=((index+9))
+	indexmodsite=((index+10))
+}
 # Separator name
 modseparator="MOD"
 
 # Function to define all variables from a compatible mod from the separator location as an index value
 fn_mod_info(){
-modname="${mods_global_array[index+indexmodname]}"
-modshortname="${mods_global_array[index+indexmodshortname]}"
-modprettyname="${mods_global_array[index+indexmodprettyname]}"
-modurl="${mods_global_array[index+indexmodurl]}"
-modfilename="${mods_global_array[index+indexmodfilename]}"
-modinstalldir="${mods_global_array[index+indexmodinstalldir]}"
-modengines="${mods_global_array[index+indexmodengines]}"
-modgames="${mods_global_array[index+indexmodgames]}"
-modnotgames="${mods_global_array[index+indexmodnotgames]}"
-modsite="${mods_global_array[index+indexmodsite]}"
+	fn_var_rel_index
+	modname="${mods_global_array[indexmodname]}"
+	modshortname="${mods_global_array[indexmodshortname]}"
+	modprettyname="${mods_global_array[indexmodprettyname]}"
+	modurl="${mods_global_array[indexmodurl]}"
+	modfilename="${mods_global_array[indexmodfilename]}"
+	modinstalldir="${mods_global_array[indexmodinstalldir]}"
+	modengines="${mods_global_array[indexmodengines]}"
+	modgames="${mods_global_array[indexmodgames]}"
+	modnotgames="${mods_global_array[indexmodnotgames]}"
+	modsite="${mods_global_array[indexmodsite]}"
 }
 
 
@@ -213,7 +215,7 @@ fn_mods_install_checks(){
 	fi
 }
 
+fn_mods_info
 fn_mods_available
 fn_mods_install_checks
 fn_mods_nasty_urls
-fn_mods_info
