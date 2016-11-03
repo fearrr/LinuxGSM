@@ -57,17 +57,22 @@ true;
 
 # Define variables relative to index
 fn_var_rel_index(){
-	indexmodseparator=((index+0))
-	indexmodname=((index+1))
-	indexmodshortname=((index+2)
-	indexmodprettyname=((index+3))
-	indexmodurl=((index+4))
-	indexmodfilename=((index+5))
-	indexmodinstalldir=((index+6))
-	indexmodengines=((index+7))
-	indexmodgames=((index+8))
-	indexmodnotgames=((index+9))
-	indexmodsite=((index+10))
+if [ -z "$index" ]; then
+	fn_print_error "index variable not set. Please report an issue to LGSM Team."
+	echo "* https://github.com/GameServerManagers/LinuxGSM/issues"
+	core_exit.sh
+fi
+	indexmodseparator=$((index+0))
+	indexmodname=$((index+1))
+	indexmodshortname=$((index+2)
+	indexmodprettyname=$((index+3))
+	indexmodurl=$((index+4))
+	indexmodfilename=$((index+5))
+	indexmodinstalldir=$((index+6))
+	indexmodengines=$((index+7))
+	indexmodgames=$((index+8))
+	indexmodnotgames=$((index+9))
+	indexmodsite=$((index+10))
 }
 # Separator name
 modseparator="MOD"
