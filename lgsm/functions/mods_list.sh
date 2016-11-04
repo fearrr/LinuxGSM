@@ -77,7 +77,7 @@ fi
 	indexmodinstalldir=$((index+6))
 	indexmodengines=$((index+7))
 	indexmodgames=$((index+8))
-	indexmodnotgames=$((index+9))
+	indexmodexcludegames=$((index+9))
 	indexmodsite=$((index+10))
 }
 
@@ -92,7 +92,7 @@ fn_mod_info(){
 	modinstalldir="${mods_global_array[indexmodinstalldir]}"
 	modengines="${mods_global_array[indexmodengines]}"
 	modgames="${mods_global_array[indexmodgames]}"
-	modnotgames="${mods_global_array[indexmodnotgames]}"
+	modexcludegames="${mods_global_array[indexmodexcludegames]}"
 	modsite="${mods_global_array[indexmodsite]}"
 }
 
@@ -101,27 +101,79 @@ fn_mod_info(){
 fn_compatible_mod_games(){
 	# Reset test value
 	modcompatiblegame="0"
-	# How many games we need to test
-	gamesamount="$(echo "${modgames}" | awk -F ';' '{ print NF }')"
-	# Test all subvalue of "modgames" using the ";" separator
-	for ((gamevarindex=1; gamevarindex < ${gamesamount}; gamevarindex++)); do
-		# Put current game name into modtest variable
-		gamemodtest="$( echo "${modgames}" | awk -F ';' -v x=${gamevarindex} '{ print $x }' )"
-		# If game name matches
-		if [ "${gamemodtest}" == "${gamename}" ]; then
-			# Mod is compatible !
-			modcompatiblegame="1"
-		fi
-	done
+	# If value is set to NA (ignore)
+	if [ "${modgames}" != "NA" ]; then
+		# How many games we need to test
+		gamesamount="$(echo "${modgames}" | awk -F ';' '{ print NF }')"
+		# Test all subvalue of "modgames" using the ";" separator
+		for ((gamevarindex=1; gamevarindex < ${gamesamount}; gamevarindex++)); do
+			# Put current game name into modtest variable
+			gamemodtest="$( echo "${modgames}" | awk -F ';' -v x=${gamevarindex} '{ print $x }' )"
+			# If game name matches
+			if [ "${gamemodtest}" == "${gamename}" ]; then
+				# Mod is compatible !
+				modcompatiblegame="1"
+			fi
+		done
+	fi
 }
 
-# Find out is an engine is compatible with a mod from a modengines (list of engines supported by a mod) variable
-#fn_compatible_mod_engines(){
-#}
+# Find out if an engine is compatible with a mod from a modengines (list of engines supported by a mod) variable
+fn_compatible_mod_engines(){
+	# Reset test value
+	modcompatibleengine="0"
+	# If value is set to NA (ignore)
+	if [ "${modengines}" != "NA" ]; then
+		# How many engines we need to test
+		enginesamount="$(echo "${modengines}" | awk -F ';' '{ print NF }')"
+		# Test all subvalue of "modengines" using the ";" separator
+		for ((gamevarindex=1; gamevarindex < ${enginesamount}; gamevarindex++)); do
+			# Put current engine name into modtest variable
+			enginemodtest="$( echo "${modengines}" | awk -F ';' -v x=${gamevarindex} '{ print $x }' )"
+			# If engine name matches
+			if [ "${enginemodtest}" == "${gamename}" ]; then
+				# Mod is compatible !
+				modcompatibleengine="1"
+			fi
+		done
+	fi
+}
 
 # Find out if a game is not compatible with a mod from a modnotgames (list of games not supported by a mod) variable
-#fn_not_compatible_mod_games(){
-#}
+fn_not_compatible_mod_games(){
+	# Reset test value
+	modeincompatiblegame="0"
+	# If value is set to NA (ignore)
+	if [ "${modexcludegames}" != "NA" ]; then
+		# How many engines we need to test
+		excludegamesamount="$(echo "${modexcludegames}" | awk -F ';' '{ print NF }')"
+		# Test all subvalue of "modexcludegames" using the ";" separator
+		for ((gamevarindex=1; gamevarindex < ${excludegamesamount}; gamevarindex++)); do
+			# Put current engine name into modtest variable
+			excludegamemodtest="$( echo "${modexcludegames}" | awk -F ';' -v x=${gamevarindex} '{ print $x }' )"
+			# If engine name matches
+			if [ "${excludegamemodtest}" == "${gamename}" ]; then
+				# Mod is compatible !
+				modeincompatiblegame="1"
+			fi
+		done
+	fi
+}
+
+# Sums up if a mod is compatible or not with modcompatibility=0/1
+fn_mod_compatible_test(){
+	# Test game and engine compatibility
+	fn_compatible_mod_games
+	fn_compatible_mod_engines
+	fn_not_compatible_mod_games
+	if [ "${modeincompatiblegame}" == "1" ]; then
+		modcompatibility="0"
+	elif [ "${modcompatibleengine}" == "1" ]||[ "${modcompatiblegame}" == "1" ]; then
+		modcompatibility="1"
+	else
+		modcompatibility="0"
+	fi
+}
 
 # Checks if a mod is compatibile for installation
 # Provides available mods for installation
@@ -138,9 +190,9 @@ fn_mods_available(){
 			# Set mod variables
 			fn_mod_info
 			# Test if game is compatible
-			fn_compatible_mod_games
+			fn_mod_compatible_test
 			# If game is compatible
-			if [ "${modcompatiblegame}" == "1" ]; then
+			if [ "${modcompatibility}" == "1" ]; then
 				# Put it into the list to display to the user
 				compatiblemodslist="${compatiblemodslist}${modprettyname} | ${modname} | ${modshortname} | ${modsite}\n"
 				# Keep available commands in an array

@@ -39,7 +39,7 @@ fn_mods_install_init(){
 			fi
 	done
 
-	# Gives a pretty name to the user
+	# Gives a pretty name to the user and get all mod info
 	fn_mod_get_all_info
 	fn_print_dots "Installing ${modprettyname}"
 	sleep 1
