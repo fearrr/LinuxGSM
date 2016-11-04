@@ -203,7 +203,7 @@ fn_mods_available(){
 			# If game is compatible
 			if [ "${modcompatibility}" == "1" ]; then
 				# Put it into the list to display to the user
-				compatiblemodslist+=( "${modcommand}" "${modprettyname}" "${modsite}" "${modfilename}" "${modurl}" )
+				compatiblemodslist+=( "${modprettyname}" "${modcommand}" "${modsite}" "${modfilename}" "${modurl}" )
 				# Keep available commands in an array
 				availablemodscommands+=( "${modcommand}" )
 			fi
@@ -213,12 +213,19 @@ fn_mods_available(){
 
 # Output available mods in a nice way to the user
 fn_mods_show_available(){
-	# How many colums there are in this list
-	# All depends on compatiblemodslist content
-	modlistcolumns="5"
-	for value in "${compatiblemodslist[@]}"; do 
-		printf "%-8s\n" "${value}"
-	done | column -c -s "|" -t "${modlistcolumns}"
+	compatiblemodslistindex=0
+	for [ "${compatiblemodslistindex}" <= "${#compatiblemodslist[@]}" ]; do
+		echo "Mod: ${compatiblemodslist[compatiblemodslistindex]}"
+		compatiblemodslistindex+="1"
+		echo "Command: ${compatiblemodslist[compatiblemodslistindex]}"
+		compatiblemodslistindex+="1"
+		echo "Author Website: ${compatiblemodslist[compatiblemodslistindex]}"
+		compatiblemodslistindex+="1"
+		echo "File: ${compatiblemodslist[compatiblemodslistindex]}"
+		compatiblemodslistindex+="1"
+		echo "Addon URL: ${compatiblemodslist[compatiblemodslistindex]}"
+		compatiblemodslistindex+="1"
+		echo ""
 }
 
 # Get details of a mod any (relevant and unique, such as full mod name or install command) value
