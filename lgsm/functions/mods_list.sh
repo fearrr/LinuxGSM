@@ -216,15 +216,15 @@ fn_mods_show_available(){
 	compatiblemodslistindex=0
 	while [ "${compatiblemodslistindex}" -le "${#compatiblemodslist[@]}" ]; do
 		echo "Mod: ${compatiblemodslist[compatiblemodslistindex]}"
-		compatiblemodslistindex+="1"
+		let "compatiblemodslistindex++"
 		echo "Command: ${compatiblemodslist[compatiblemodslistindex]}"
-		compatiblemodslistindex+="1"
+		let "compatiblemodslistindex++"
 		echo "Author Website: ${compatiblemodslist[compatiblemodslistindex]}"
-		compatiblemodslistindex+="1"
+		let "compatiblemodslistindex++"
 		echo "File: ${compatiblemodslist[compatiblemodslistindex]}"
-		compatiblemodslistindex+="1"
+		let "compatiblemodslistindex++"
 		echo "Addon URL: ${compatiblemodslist[compatiblemodslistindex]}"
-		compatiblemodslistindex+="1"
+		let "compatiblemodslistindex++"
 		echo ""
 	done
 }
