@@ -38,8 +38,8 @@ fn_mods_info(){
 	# [10]	| "AUTHOR_URL" is the author's website, displayed when chosing mods to install, double quote is for a better look
 
 	# Source mods
-	mod_info_sourcemod=( MOD sourcemod sm "SourceMod" "https://sm.alliedmods.net/smdrop/1.8/sourcemod-1.8.0-git5948-linux.tar.gz" sourcemod-1.8.0-git5948-linux.tar.gz "${systemdir}" "source;" "NA" "NA" "http://www.sourcemod.net/" )
-	mod_info_metamod=( MOD metamod mm "MetaMod" "http://cdn.probablyaserver.com/sourcemod/mmsource-1.10.6-linux.tar.gz" mmsource-1.10.6-linux.tar.gz "${systemdir}" "source;" "NA" "NA" "https://www.sourcemm.net/" )
+	mod_info_sourcemod=( MOD sourcemod sm "SourceMod" "${metamodurl}" "${mmodlatestfile}" "${systemdir}" "source;" "NA" "NA" "http://www.sourcemod.net/" )
+	mod_info_metamod=( MOD metamod mm "MetaMod" "http://cdn.probablyaserver.com/sourcemod/mmsource-1.10.6-linux.tar.gz" mmsource-1.10.6-linux.tar.gz "${systemdir}" "source;" "NA" "Garry's Mod" "https://www.sourcemm.net/" )
 	# Garry's Mod Addons
 	mod_info_ulib=( MOD ulib ub "ULib" "https://codeload.github.com/TeamUlysses/ulib/zip/master" ulib-master.zip "${systemdir}/addons" "NA" "Garry's Mod;" "NA" "http://ulyssesmod.net/" )
 	mod_info_ulx=( MOD ulx ux "ULX" "https://codeload.github.com/TeamUlysses/ulx/zip/master" ulx-master.zip "${systemdir}/addons" "NA" "Garry's Mod;" "NA" "http://ulyssesmod.net/" )
@@ -54,8 +54,13 @@ fn_mods_info(){
 
 # Get a proper URL for mods that don't provide a good one (optional)
 fn_mods_nasty_urls(){
-# Sourcemod & metamod will come here
-true;
+	# Metamod
+	mmversion="1.8"
+	mmscrapeurl="http://www.sourcemod.net/smdrop"
+	mmodlatestfile="$(wget "${mmscrapeurl}/${mmversion}/sourcemod-latest-linux" -q -O - )"
+	metamodurl="${mmscrapeurl}/${mmversion}/${mmodlatest}"
+	# Sourcemod
+	sourcemodurl=""
 }
 
 # Define variables relative to index
@@ -131,7 +136,7 @@ fn_compatible_mod_engines(){
 			# Put current engine name into modtest variable
 			enginemodtest="$( echo "${modengines}" | awk -F ';' -v x=${gamevarindex} '{ print $x }' )"
 			# If engine name matches
-			if [ "${enginemodtest}" == "${gamename}" ]; then
+			if [ "${enginemodtest}" == "${engine}" ]; then
 				# Mod is compatible !
 				modcompatibleengine="1"
 			fi
@@ -247,6 +252,6 @@ fn_mods_install_checks(){
 }
 
 fn_mods_info
+fn_mods_nasty_urls
 fn_mods_available
 fn_mods_install_checks
-fn_mods_nasty_urls
