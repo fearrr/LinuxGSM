@@ -22,7 +22,7 @@ fn_mods_install_init(){
 			echo ""
 			echo "Available mods:"
 			# compatiblemodslist comes from mods_list.sh depending on gamename or engine
-			echo -e "${compatiblemodslist}"	
+			echo -en "${compatiblemodslist}"	
 			echo "(input exit to abort)"
 			echo ""
 			echo "Enter the mod you wish to install:"
