@@ -203,7 +203,7 @@ fn_mods_available(){
 			# If game is compatible
 			if [ "${modcompatibility}" == "1" ]; then
 				# Put it into the list to display to the user
-				compatiblemodslist+=( "${modprettyname}" "${modsite}" "${modcommand}" "${modfilename}" "${modurl}" )
+				compatiblemodslist+=( "${modprettyname}" "${modsite}" "${modfilename}" "${modcommand}" )
 				# Keep available commands in an array
 				availablemodscommands+=( "${modcommand}" )
 			fi
@@ -215,12 +215,12 @@ fn_mods_available(){
 fn_mods_show_available(){
 	compatiblemodslistindex=0
 	while [ "${compatiblemodslistindex}" -lt "${#compatiblemodslist[@]}" ]; do
-		echo "${compatiblemodslist[compatiblemodslistindex]}	|	${compatiblemodslist[compatiblemodslistindex+1]}"
+		echo "${compatiblemodslist[compatiblemodslistindex]} | Author Website: ${compatiblemodslist[compatiblemodslistindex+1]}"
 		let "compatiblemodslistindex+=2"
-		echo "Install Command: ${compatiblemodslist[compatiblemodslistindex]}"
+		echo "File: ${compatiblemodslist[compatiblemodslistindex]}"
 		let "compatiblemodslistindex++"
-		echo "File: ${compatiblemodslist[compatiblemodslistindex]} From: ${compatiblemodslist[compatiblemodslistindex+1]} "
-		let "compatiblemodslistindex+=3"
+		echo "Command: ${compatiblemodslist[compatiblemodslistindex]}"
+		let "compatiblemodslistindex++"
 		echo ""
 	done
 }
