@@ -226,6 +226,7 @@ fn_mods_show_available(){
 		echo "Addon URL: ${compatiblemodslist[compatiblemodslistindex]}"
 		compatiblemodslistindex+="1"
 		echo ""
+	done
 }
 
 # Get details of a mod any (relevant and unique, such as full mod name or install command) value
