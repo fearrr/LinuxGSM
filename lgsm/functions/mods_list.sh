@@ -132,7 +132,7 @@ fn_mods_available(){
 			# If game is compatible
 			if [ "${modcompatiblegame}" == "1" ]; then
 				compatiblemodslist="${compatiblemodslist}${modprettyname} | ${modname} | ${modshortname} | ${modsite}\n"
-				availablemodscommands="( ${availablemodscommands[@]} ${modprettyname} ${modname} ${modshortname} )"
+				availablemodscommands=( "${availablemodscommands[@]}" "${modprettyname}" "${modname}" "${modshortname}" )
 			fi
 		fi
 	done
