@@ -21,8 +21,8 @@ fn_mods_install_init(){
 	while [[ ! " ${availablemodscommands[@]} " =~ " ${currentmod} " ]]; do
 			echo ""
 			echo "Available mods:"
-			# compatiblemodslist comes from mods_list.sh depending on gamename or engine
-			echo -en "${compatiblemodslist}"	
+			# Display available mods from mods_list.sh
+			fn_mods_show_available	
 			echo "(input exit to abort)"
 			echo ""
 			echo "Enter the mod you wish to install:"

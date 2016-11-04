@@ -22,34 +22,33 @@ modseparator="MOD"
 
 # Define mods information (required)
 fn_mods_info(){
-	# REQUIRED: mod_info_name=( MOD name shortname "Pretty Name" "URL" filename "${installdir}" "Supported Engines;" "Supported Games;" "Unsupported Games;" "AUTHOR_URL")
+	# REQUIRED: mod_info_name=( MOD modcommand "Pretty Name" "URL" filename "${installdir}" "Supported Engines;" "Supported Games;" "Unsupported Games;" "AUTHOR_URL")
 	# None of those values can be empty
 	# [index]	| Usage
 	# [0] 	| MOD is a separator and is value [O] of the array
-	# [1] 	| name is the LGSM name for the mod
-	# [2] 	| shortname is the lgsm shortname for the mod
-	# [3] 	| "Pretty Name" is the common name people use to call the mod, should be in double quotes
-	# [4] 	| URL to download the file. Can be a variable defined in fn_mods_nasty_urls, double quote is for a better look
-	# [5] 	| The output filename, needed for fn_fetch_file
-	# [6] 	| ${installdir} must use LGSM dir variables
-	# [7] 	| List all "Supported Engines" according to LGSM ${engine} variable, all between double quotes, each one separated with a semicolon, or use NA to ignore the value
-	# [8] 	| List all "Supported Games" according to LGSM ${gamename} variable, all between double quotes, each one separated with a semicolon, or use NA to ignore the value 
-	# [9]	| List all "Unsupported Games", all between double quotes, each one separated with a semicolon, or use NA to ignore the value (useful to exclude a game when using [7])
-	# [10]	| "AUTHOR_URL" is the author's website, displayed when chosing mods to install, double quote is for a better look
+	# [1] 	| modcommand is the LGSM command and name for the mod (must be unique)
+	# [2] 	| "Pretty Name" is the common name people use to call the mod, should be in double quotes
+	# [3] 	| URL to download the file. Can be a variable defined in fn_mods_nasty_urls, double quote is for a better look
+	# [4] 	| The output filename, needed for fn_fetch_file
+	# [5] 	| ${installdir} must use LGSM dir variables
+	# [6] 	| List all "Supported Engines" according to LGSM ${engine} variable, all between double quotes, each one separated with a semicolon, or use NA to ignore the value
+	# [7] 	| List all "Supported Games" according to LGSM ${gamename} variable, all between double quotes, each one separated with a semicolon, or use NA to ignore the value 
+	# [8]	| List all "Unsupported Games", all between double quotes, each one separated with a semicolon, or use NA to ignore the value (useful to exclude a game when using [7])
+	# [9]	| "AUTHOR_URL" is the author's website, displayed when chosing mods to install, double quote is for a better look
 
 	# Source mods
-	mod_info_sourcemod=( MOD sourcemod sm "SourceMod" "${sourcemodurl}" "${sourcemodlatestfile}" "${systemdir}" "source;" "NA" "Garry's Mod;" "http://www.sourcemod.net/" )
-	mod_info_metamod=( MOD metamod mm "MetaMod" "${metamodurl}" "${metamodlatestfile}" "${systemdir}" "source;" "NA" "Garry's Mod;" "https://www.sourcemm.net/" )
+	mod_info_sourcemod=( MOD sourcemod "SourceMod" "${sourcemodurl}" "${sourcemodlatestfile}" "${systemdir}" "source;" "NA" "Garry's Mod;" "http://www.sourcemod.net/" )
+	mod_info_metamod=( MOD metamod "MetaMod" "${metamodurl}" "${metamodlatestfile}" "${systemdir}" "source;" "NA" "Garry's Mod;" "https://www.sourcemm.net/" )
 	# Garry's Mod Addons
-	mod_info_ulib=( MOD ulib ub "ULib" "https://codeload.github.com/TeamUlysses/ulib/zip/master" ulib-master.zip "${systemdir}/addons" "NA" "Garry's Mod;" "NA" "http://ulyssesmod.net/" )
-	mod_info_ulx=( MOD ulx ux "ULX" "https://codeload.github.com/TeamUlysses/ulx/zip/master" ulx-master.zip "${systemdir}/addons" "NA" "Garry's Mod;" "NA" "http://ulyssesmod.net/" )
-	mod_info_utime=( MOD utime ut "UTime" "https://github.com/TeamUlysses/utime/archive/master.zip" utime-master.zip "${systemdir}/addons" "NA" "Garry's Mod;" "NA" "http://ulyssesmod.net/" )
-	mod_info_uclip=( MOD uclip uc "UClib" "https://github.com/TeamUlysses/uclip/archive/master.zip" uclip-master.zip "${systemdir}/addons" "NA" "Garry's Mod;" "NA" "http://ulyssesmod.net/" )
-	mod_info_acf=( MOD acf ac "Armoured Combat Framework" "https://github.com/nrlulz/ACF/archive/master.zip" acf-master.zip "${systemdir}/addons" "NA" "Garry's Mod;" "NA" "http://ulyssesmod.net/" )
+	mod_info_ulib=( MOD ulib "ULib" "https://codeload.github.com/TeamUlysses/ulib/zip/master" ulib-master.zip "${systemdir}/addons" "NA" "Garry's Mod;" "NA" "http://ulyssesmod.net/" )
+	mod_info_ulx=( MOD ulx "ULX" "https://codeload.github.com/TeamUlysses/ulx/zip/master" ulx-master.zip "${systemdir}/addons" "NA" "Garry's Mod;" "NA" "http://ulyssesmod.net/" )
+	mod_info_utime=( MOD utime "UTime" "https://github.com/TeamUlysses/utime/archive/master.zip" utime-master.zip "${systemdir}/addons" "NA" "Garry's Mod;" "NA" "http://ulyssesmod.net/" )
+	mod_info_uclip=( MOD uclip "UClib" "https://github.com/TeamUlysses/uclip/archive/master.zip" uclip-master.zip "${systemdir}/addons" "NA" "Garry's Mod;" "NA" "http://ulyssesmod.net/" )
+	mod_info_acf=( MOD acf "Armoured Combat Framework" "https://github.com/nrlulz/ACF/archive/master.zip" acf-master.zip "${systemdir}/addons" "NA" "Garry's Mod;" "NA" "http://ulyssesmod.net/" )
 	# Oxidemod
-	mod_info_rustoxide=( MOD rustoxide ro "Oxide for Rust" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-Rust.zip" Oxide-Rust_Linux.zip "${systemdir}" "NA" "Rust;" "NA" "http://oxidemod.org/downloads/oxide-for-rust.1659/" )
-	mod_info_hwoxide=( MOD hwoxide ho "Oxide for Hurtworld" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-Hurtworld.zip" Oxide-Hurtworld_Linux.zip "${systemdir}" "NA" "Hurtworld;" "NA" "http://oxidemod.org/downloads/oxide-for-hurtworld.1332/" )
-	mod_info_sdtdoxide=( MOD sdtdoxide so "Oxide for 7 Days To Die" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-7DaysToDie.zip" Oxide-7DaysToDie_Linux.zip "${systemdir}" "NA" "7 Days To Die;" "NA" "http://oxidemod.org/downloads/oxide-for-7-days-to-die.813/" )
+	mod_info_rustoxide=( MOD rustoxide "Oxide for Rust" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-Rust.zip" Oxide-Rust_Linux.zip "${systemdir}" "NA" "Rust;" "NA" "http://oxidemod.org/downloads/oxide-for-rust.1659/" )
+	mod_info_hwoxide=( MOD hwoxide "Oxide for Hurtworld" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-Hurtworld.zip" Oxide-Hurtworld_Linux.zip "${systemdir}" "NA" "Hurtworld;" "NA" "http://oxidemod.org/downloads/oxide-for-hurtworld.1332/" )
+	mod_info_sdtdoxide=( MOD sdtdoxide "Oxide for 7 Days To Die" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-7DaysToDie.zip" Oxide-7DaysToDie_Linux.zip "${systemdir}" "NA" "7 Days To Die;" "NA" "http://oxidemod.org/downloads/oxide-for-7-days-to-die.813/" )
 
 	# REQUIRED: Set all mods info into one array for convenience
 	mods_global_array=( "${mod_info_sourcemod[@]}" "${mod_info_metamod[@]}" "${mod_info_ulib[@]}" "${mod_info_ulx[@]}" "${mod_info_utime[@]}" "${mod_info_uclip[@]}" "${mod_info_acf[@]}" "${mod_info_rustoxide[@]}" "${mod_info_hwoxide[@]}" "${mod_info_sdtdoxide[@]}" )
@@ -81,23 +80,21 @@ if [ -z "$index" ]; then
 	core_exit.sh
 fi
 	indexmodseparator=$((index+0))
-	indexmodname=$((index+1))
-	indexmodshortname=$((index+2))
-	indexmodprettyname=$((index+3))
-	indexmodurl=$((index+4))
-	indexmodfilename=$((index+5))
-	indexmodinstalldir=$((index+6))
-	indexmodengines=$((index+7))
-	indexmodgames=$((index+8))
-	indexmodexcludegames=$((index+9))
-	indexmodsite=$((index+10))
+	indexmodcommand=$((index+1))
+	indexmodprettyname=$((index+2))
+	indexmodurl=$((index+3))
+	indexmodfilename=$((index+4))
+	indexmodinstalldir=$((index+5))
+	indexmodengines=$((index+6))
+	indexmodgames=$((index+7))
+	indexmodexcludegames=$((index+8))
+	indexmodsite=$((index+9))
 }
 
 # Define all variables from a mod at once when index is set to a separator
 fn_mod_info(){
 	fn_var_rel_index
-	modname="${mods_global_array[indexmodname]}"
-	modshortname="${mods_global_array[indexmodshortname]}"
+	modcommand="${mods_global_array[indexmodcommand]}"
 	modprettyname="${mods_global_array[indexmodprettyname]}"
 	modurl="${mods_global_array[indexmodurl]}"
 	modfilename="${mods_global_array[indexmodfilename]}"
@@ -192,7 +189,7 @@ fn_mod_compatible_test(){
 # Provides commands for mods installation
 fn_mods_available(){
 	# First, reset variables
-	compatiblemodslist=""
+	compatiblemodslist=()
 	availablemodscommands=()
 	# Find compatible games
 	# Find separators through the global array
@@ -206,12 +203,22 @@ fn_mods_available(){
 			# If game is compatible
 			if [ "${modcompatibility}" == "1" ]; then
 				# Put it into the list to display to the user
-				compatiblemodslist="${compatiblemodslist}${modprettyname}\t | ${modname}\t | ${modshortname}\t | ${modsite}\n"
+				compatiblemodslist+=( "${modcommand}" "${modprettyname}" "${modsite}" "${modfilename}" "${modurl}" )
 				# Keep available commands in an array
-				availablemodscommands+=( "${modprettyname}" "${modname}" "${modshortname}" )
+				availablemodscommands+=( "${modcommand}" )
 			fi
 		fi
 	done
+}
+
+# Output available mods in a nice way to the user
+fn_mods_show_available(){
+	# How many colums there are in this list
+	# All depends on compatiblemodslist content
+	modlistcolumns="5"
+	for value in "${compatiblemodslist[@]}"; do 
+		printf "%-8s\n" "${value}"
+	done | column -c -s "|" -t "${modlistcolumns}"
 }
 
 # Get details of a mod any (relevant and unique, such as full mod name or install command) value
