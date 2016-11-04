@@ -38,8 +38,8 @@ fn_mods_info(){
 	# [10]	| "AUTHOR_URL" is the author's website, displayed when chosing mods to install, double quote is for a better look
 
 	# Source mods
-	mod_info_sourcemod=( MOD sourcemod sm "SourceMod" "${metamodurl}" "${mmodlatestfile}" "${systemdir}" "source;" "NA" "Garry's Mod;" "http://www.sourcemod.net/" )
-	mod_info_metamod=( MOD metamod mm "MetaMod" "http://cdn.probablyaserver.com/sourcemod/mmsource-1.10.6-linux.tar.gz" mmsource-1.10.6-linux.tar.gz "${systemdir}" "source;" "NA" "Garry's Mod;" "https://www.sourcemm.net/" )
+	mod_info_sourcemod=( MOD sourcemod sm "SourceMod" "${sourcemodmodurl}" "${sourcemodlatestfile}" "${systemdir}" "source;" "NA" "Garry's Mod;" "http://www.sourcemod.net/" )
+	mod_info_metamod=( MOD metamod mm "MetaMod" "${metamodurl}" "${metamodlatestfile}" "${systemdir}" "source;" "NA" "Garry's Mod;" "https://www.sourcemm.net/" )
 	# Garry's Mod Addons
 	mod_info_ulib=( MOD ulib ub "ULib" "https://codeload.github.com/TeamUlysses/ulib/zip/master" ulib-master.zip "${systemdir}/addons" "NA" "Garry's Mod;" "NA" "http://ulyssesmod.net/" )
 	mod_info_ulx=( MOD ulx ux "ULX" "https://codeload.github.com/TeamUlysses/ulx/zip/master" ulx-master.zip "${systemdir}/addons" "NA" "Garry's Mod;" "NA" "http://ulyssesmod.net/" )
@@ -57,13 +57,15 @@ fn_mods_info(){
 
 # Get a proper URL for mods that don't provide a good one (optional)
 fn_mods_nasty_urls(){
-	# Metamod
-	mmversion="1.8"
-	mmscrapeurl="http://www.sourcemod.net/smdrop"
-	mmodlatestfile="$(wget "${mmscrapeurl}/${mmversion}/sourcemod-latest-linux" -q -O - )"
-	metamodurl="${mmscrapeurl}/${mmversion}/${mmodlatest}"
 	# Sourcemod
-	sourcemodurl=""
+	sourcemodmversion="1.8"
+	sourcemodscrapeurl="http://www.sourcemod.net/smdrop"
+	sourcemodlatestfile="$(wget "${sourcemodscrapeurl}/${smversion}/sourcemod-latest-linux" -q -O - )"
+	sourcemodmodurl="${sourcemodscrapeurl}/${smversion}/${sourcemodlatestfile}"
+	# Metamod
+	metamodscrapeurl="http://www.gsptalk.com/mirror/sourcemod"
+	metamodlatestfile="$(wget ${metamodscrapeurl}/?MD -q -O -| grep "\-linux" | head -n1 | awk -F '>' '{ print $3 }' | awk -F '<' '{ print $1}')"
+	metamodurl="${metamodscrapeurl}/${metamodlatestfile}"
 }
 
 # Define variables relative to index
@@ -202,7 +204,7 @@ fn_mods_available(){
 			# If game is compatible
 			if [ "${modcompatibility}" == "1" ]; then
 				# Put it into the list to display to the user
-				compatiblemodslist="${compatiblemodslist}${modprettyname} |\t ${modname} |\t ${modshortname} |\t ${modsite}\n"
+				compatiblemodslist="${compatiblemodslist}${modprettyname}\t | ${modname}\t | ${modshortname}\t | ${modsite}\n"
 				# Keep available commands in an array
 				availablemodscommands+=( "${modprettyname}" "${modname}" "${modshortname}" )
 			fi
