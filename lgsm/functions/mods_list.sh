@@ -120,7 +120,7 @@ fn_mods_available(){
 	# Per game name
 	# First, reset variables
 	compatiblemodslist=""
-	availablemodscommands=""
+	availablemodscommands=()
 	# Find a separator
 	for ((index="0"; index <= ${#mods_global_array[@]}; index++)); do
 		# If current value is a separator; then we can find any info
@@ -132,7 +132,7 @@ fn_mods_available(){
 			# If game is compatible
 			if [ "${modcompatiblegame}" == "1" ]; then
 				compatiblemodslist="${compatiblemodslist}${modprettyname} | ${modname} | ${modshortname} | ${modsite}\n"
-				availablemodscommands=( "${availablemodscommands[@]}" "${modprettyname}" "${modname}" "${modshortname}" )
+				availablemodscommands+=( "${modprettyname}" "${modname}" "${modshortname}" )
 			fi
 		fi
 	done
