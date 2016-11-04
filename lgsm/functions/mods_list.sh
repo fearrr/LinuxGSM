@@ -60,11 +60,11 @@ fn_mods_nasty_urls(){
 	# Sourcemod
 	sourcemodmversion="1.8"
 	sourcemodscrapeurl="http://www.gsptalk.com/mirror/sourcemod"
-	sourcemodlatestfile"$(wget ${metamodscrapeurl}/?MD -q -O -| grep "sourcemod-" | grep "\-linux" | head -n1 | awk -F '>' '{ print $3 }' | awk -F '<' '{ print $1}')"
+	sourcemodlatestfile="$(wget "${metamodscrapeurl}/?MD" -q -O -| grep "sourcemod-" | grep "\-linux" | head -n1 | awk -F '>' '{ print $3 }' | awk -F '<' '{ print $1}')"
 	sourcemodurl="${sourcemodscrapeurl}/${sourcemodmversion}/${sourcemodlatestfile}"
 	# Metamod
 	metamodscrapeurl="http://www.gsptalk.com/mirror/sourcemod"
-	metamodlatestfile="$(wget ${metamodscrapeurl}/?MD -q -O -| grep "mmsource" | grep "\-linux" | head -n1 | awk -F '>' '{ print $3 }' | awk -F '<' '{ print $1}')"
+	metamodlatestfile="$(wget "${metamodscrapeurl}/?MD" -q -O -| grep "mmsource" | grep "\-linux" | head -n1 | awk -F '>' '{ print $3 }' | awk -F '<' '{ print $1}')"
 	metamodurl="${metamodscrapeurl}/${metamodlatestfile}"
 }
 
