@@ -214,7 +214,7 @@ fn_mods_available(){
 # Output available mods in a nice way to the user
 fn_mods_show_available(){
 	compatiblemodslistindex=0
-	for [ "${compatiblemodslistindex}" <= "${#compatiblemodslist[@]}" ]; do
+	while [ "${compatiblemodslistindex}" -le "${#compatiblemodslist[@]}" ]; do
 		echo "Mod: ${compatiblemodslist[compatiblemodslistindex]}"
 		compatiblemodslistindex+="1"
 		echo "Command: ${compatiblemodslist[compatiblemodslistindex]}"
