@@ -60,8 +60,8 @@ fn_mods_nasty_urls(){
 	# Sourcemod
 	sourcemodmversion="1.8"
 	sourcemodscrapeurl="http://www.sourcemod.net/smdrop"
-	sourcemodlatestfile="$(wget "${sourcemodscrapeurl}/${smversion}/sourcemod-latest-linux" -q -O - )"
-	sourcemodmodurl="${sourcemodscrapeurl}/${smversion}/${sourcemodlatestfile}"
+	sourcemodlatestfile="$(wget "${sourcemodscrapeurl}/${sourcemodmversion}/sourcemod-latest-linux" -q -O -)"
+	sourcemodmodurl="${sourcemodscrapeurl}/${sourcemodmversion}/${sourcemodlatestfile}"
 	# Metamod
 	metamodscrapeurl="http://www.gsptalk.com/mirror/sourcemod"
 	metamodlatestfile="$(wget ${metamodscrapeurl}/?MD -q -O -| grep "\-linux" | head -n1 | awk -F '>' '{ print $3 }' | awk -F '<' '{ print $1}')"
