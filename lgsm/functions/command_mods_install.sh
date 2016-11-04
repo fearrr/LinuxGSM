@@ -40,22 +40,20 @@ fn_mods_install_init(){
 	done
 
 	# Gives a pretty name to the user
-	fn_mod_name_prettify
-	fn_print_dots "Installing ${currentmod_prettyname}"
+	fn_mod_get_all_info
+	fn_print_dots "Installing ${modprettyname}"
 	sleep 1
-	fn_script_log "Installing ${currentmod_prettyname}."
+	fn_script_log "Installing ${modprettyname}."
 }
 
 # Create mods directory if it doesn't exist
 # Assuming the game is already installed as mods_list.sh checked for it.
 fn_mods_dir(){
-	# Get destination dir with fn_mods_install_dir from mods_list.sh
-	fn_mods_install_dir
-	if [ ! -d "${mod_destination}" ]; then
-		fn_script_log_info "Creating mods directory: ${mod_destination}"
+	if [ ! -d "${modinstalldir}" ]; then
+		fn_script_log_info "Creating mods directory: ${modinstalldir}"
 		fn_print_dots "Creating mods directory"
 		sleep 1
-		mkdir -p "${mod_destination}"
+		mkdir -p "${modinstalldir}"
 		fn_print_ok_nl "Created mods directory"
 	fi
 }
@@ -89,45 +87,41 @@ fn_mod_add_list(){
 		fn_script_log "Created ${modslockfilefullpath}"
 	fi
 	# Input mod name to lockfile
-	if [ ! -n "$(cat "${modslockfilefullpath}" | grep "${currentmod_prettyname}")" ]; then
-		echo "${currentmod_prettyname}" >> "${modslockfilefullpath}"
-		fn_script_log "${currentmod_prettyname} added to ${modslockfile}"
+	if [ ! -n "$(cat "${modslockfilefullpath}" | grep "${modprettyname}")" ]; then
+		echo "${modprettyname}" >> "${modslockfilefullpath}"
+		fn_script_log "${modprettyname} added to ${modslockfile}"
 	fi
 }
 
 # Download and extract the mod using core_dl.sh
 fn_mod_installation(){
+	# Get mod info
+	fn_mod_get_all_info
 	# Clear lgsm/tmp/mods dir if exists then recreate it
 	fn_clear_tmp_mods
 	fn_mods_tmpdir
-	# Get mod destination as ${mod_destination} from mods_list.sh
-	fn_mods_dir
-	# Get URL as ${mod_url} from mods_list.sh
-	fn_mod_get_url
-	# Get mod filename as "${mod_filename} from mods_list.sh
-	fn_mod_get_filename
 	# Download mod
 	# fn_fetch_file "${fileurl}" "${filedir}" "${filename}" "${executecmd}" "${run}" "${force}" "${md5}"
-	fileurl="${mod_url}"
+	fileurl="${modurl}"
 	filedir="${modstmpdir}"
-	filename="${mod_filename}" 
+	filename="${modfilename}" 
 	fn_script_log "Downloading mods to ${modstmpdir}"
 	fn_fetch_file "${fileurl}" "${filedir}" "${filename}"
 	# Check if variable is valid checking if file has been downloaded and exists
-	if [ ! -f "${modstmpdir}/${mod_filename}" ]; then
-		fn_print_fail "An issue occurred upon downloading ${currentmod_prettyname}"
+	if [ ! -f "${modstmpdir}/${modfilename}" ]; then
+		fn_print_fail "An issue occurred upon downloading ${modprettyname}"
 		core_exit.sh
 	fi
 	# Extract the mod
 	# fn_dl_extract "${filedir}" "${filename}" "${extractdir}"
-	filename="${mod_filename}"
-	extractdir="${mod_destination}"
+	filename="${modfilename}"
+	extractdir="${modinstalldir}"
 	fn_dl_extract "${filedir}" "${filename}" "${extractdir}"
 	# Ending with installation routines
 	fn_clear_tmp_mods
 	fn_mod_add_list
-	fn_print_ok_nl "${currentmod_prettyname} installed."
-	fn_script_log "${currentmod_prettyname} installed."
+	fn_print_ok_nl "${modprettyname} installed."
+	fn_script_log "${modprettyname} installed."
 }
 
 fn_mods_install_checks
