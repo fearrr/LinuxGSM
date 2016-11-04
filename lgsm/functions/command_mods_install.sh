@@ -18,8 +18,7 @@ fn_mods_install_init(){
 	echo "${gamename} mods & addons installation"
 
 	# Keep prompting as long as the user input doesn't correspond to an available mod
-	while [[ ! " ${availablemodscommands[@]} " =~ " ${currentmod} " ]]
-	do
+	while [[ ! " ${availablemodscommands[@]} " =~ " ${currentmod} " ]]; do
 			echo ""
 			echo "Available mods:"
 			# compatiblemodslist comes from mods_list.sh depending on gamename or engine
