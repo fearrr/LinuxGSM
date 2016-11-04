@@ -60,7 +60,7 @@ fn_mods_nasty_urls(){
 	# Sourcemod
 	sourcemodmversion="1.8"
 	sourcemodscrapeurl="http://www.gsptalk.com/mirror/sourcemod"
-	sourcemodlatestfile="$(wget "${metamodscrapeurl}/?MD" -q -O -| grep "sourcemod-" | grep "\-linux" | head -n1 | awk -F '>' '{ print $3 }' | awk -F '<' '{ print $1}')"
+	sourcemodlatestfile="$(wget "${sourcemodscrapeurl}/?MD" -q -O -| grep "sourcemod-" | grep "\-linux" | head -n1 | awk -F '>' '{ print $3 }' | awk -F '<' '{ print $1}')"
 	sourcemodurl="${sourcemodscrapeurl}/${sourcemodmversion}/${sourcemodlatestfile}"
 	# Metamod
 	metamodscrapeurl="http://www.gsptalk.com/mirror/sourcemod"
@@ -256,7 +256,7 @@ fn_mods_install_checks(){
 	fi
 }
 
-fn_mods_info
 fn_mods_nasty_urls
+fn_mods_info
 fn_mods_available
 fn_mods_install_checks
