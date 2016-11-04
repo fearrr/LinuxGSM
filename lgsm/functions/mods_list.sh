@@ -38,7 +38,7 @@ fn_mods_info(){
 	# [10]	| "AUTHOR_URL" is the author's website, displayed when chosing mods to install, double quote is for a better look
 
 	# Source mods
-	mod_info_sourcemod=( MOD sourcemod sm "SourceMod" "${sourcemodmodurl}" "${sourcemodlatestfile}" "${systemdir}" "source;" "NA" "Garry's Mod;" "http://www.sourcemod.net/" )
+	mod_info_sourcemod=( MOD sourcemod sm "SourceMod" "${sourcemodurl}" "${sourcemodlatestfile}" "${systemdir}" "source;" "NA" "Garry's Mod;" "http://www.sourcemod.net/" )
 	mod_info_metamod=( MOD metamod mm "MetaMod" "${metamodurl}" "${metamodlatestfile}" "${systemdir}" "source;" "NA" "Garry's Mod;" "https://www.sourcemm.net/" )
 	# Garry's Mod Addons
 	mod_info_ulib=( MOD ulib ub "ULib" "https://codeload.github.com/TeamUlysses/ulib/zip/master" ulib-master.zip "${systemdir}/addons" "NA" "Garry's Mod;" "NA" "http://ulyssesmod.net/" )
@@ -59,12 +59,12 @@ fn_mods_info(){
 fn_mods_nasty_urls(){
 	# Sourcemod
 	sourcemodmversion="1.8"
-	sourcemodscrapeurl="http://www.sourcemod.net/smdrop"
-	sourcemodlatestfile="$(wget "${sourcemodscrapeurl}/${sourcemodmversion}/sourcemod-latest-linux" -q -O -)"
-	sourcemodmodurl="${sourcemodscrapeurl}/${sourcemodmversion}/${sourcemodlatestfile}"
+	sourcemodscrapeurl="http://www.gsptalk.com/mirror/sourcemod"
+	sourcemodlatestfile"$(wget ${metamodscrapeurl}/?MD -q -O -| grep "sourcemod-" | grep "\-linux" | head -n1 | awk -F '>' '{ print $3 }' | awk -F '<' '{ print $1}')"
+	sourcemodurl="${sourcemodscrapeurl}/${sourcemodmversion}/${sourcemodlatestfile}"
 	# Metamod
 	metamodscrapeurl="http://www.gsptalk.com/mirror/sourcemod"
-	metamodlatestfile="$(wget ${metamodscrapeurl}/?MD -q -O -| grep "\-linux" | head -n1 | awk -F '>' '{ print $3 }' | awk -F '<' '{ print $1}')"
+	metamodlatestfile="$(wget ${metamodscrapeurl}/?MD -q -O -| grep "mmsource" | grep "\-linux" | head -n1 | awk -F '>' '{ print $3 }' | awk -F '<' '{ print $1}')"
 	metamodurl="${metamodscrapeurl}/${metamodlatestfile}"
 }
 
