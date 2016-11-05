@@ -207,14 +207,14 @@ fn_mods_available(){
 			# If game is compatible
 			if [ "${modcompatibility}" == "1" ]; then
 				# Put it into the list to display to the user
-				compatiblemodslist+=( "${modprettyname}" "${modsite}" "${modfilename}" "${modcommand}" )
+				compatiblemodslist+=( "${modprettyname}" "${modcommand}" "${modfilename}" "${modsite}" )
 				# Keep available commands in an array
 				availablemodscommands+=( "${modcommand}" )
 				# Find max lenghs for user output to be put into nice regular tables
 				modprettynamemaxlengh=$((${#modprettyname}>${modprettynamemaxlengh}?${#modprettyname}:${modprettynamemaxlengh}))
-				modsitemaxlengh=$((${#modprettyname}>${modsitemaxlengh}?${#modprettyname}:${modsitemaxlengh}))
-				modfilenamemaxlengh=$((${#modprettyname}>${modfilenamemaxlengh}?${#modprettyname}:${modfilenamemaxlengh}))
 				modcommandmaxlengh=$((${#modprettyname}>${modcommandmaxlengh}?${#modprettyname}:${modcommandmaxlengh}))
+				modfilenamemaxlengh=$((${#modprettyname}>${modfilenamemaxlengh}?${#modprettyname}:${modfilenamemaxlengh}))
+				modsitemaxlengh=$((${#modprettyname}>${modsitemaxlengh}?${#modprettyname}:${modsitemaxlengh}))
 			fi
 		fi
 	done
@@ -224,7 +224,7 @@ fn_mods_available(){
 fn_mods_show_available(){
 	compatiblemodslistindex=0
 	while [ "${compatiblemodslistindex}" -lt "${#compatiblemodslist[@]}" ]; do
-		echo "$(echo -e "\e[1m${compatiblemodslist[compatiblemodslistindex]}\e[0m \;| Install Command: \e[36m${compatiblemodslist[compatiblemodslistindex+3]}\e[0m \;| ${compatiblemodslist[compatiblemodslistindex+1]} \;| ${compatiblemodslist[compatiblemodslistindex+2]}" \;| column -t -s "\;" -c "${modprettynamemaxlengh}")"
+		echo "$(echo -e "\e[1m${compatiblemodslist[compatiblemodslistindex]}\e[0m\;" | column -t -s "\;" -c "${modprettynamemaxlengh}")" \| "$(echo -e "\e[36m${compatiblemodslist[compatiblemodslistindex+1]}\e[0m\;" | column -t -s "\;" -c "${modcommandmaxlengh}")" \| "$(echo -e "${compatiblemodslist[compatiblemodslistindex+2]}\;" | column -t -s "\;" -c "${modfilenamemaxlengh}")" \| "$(echo -e "${compatiblemodslist[compatiblemodslistindex+3]}\;" | column -t -s "\;" -c "${modcommandmaxlengh}")"
 		let "compatiblemodslistindex+=4"
 	done
 }
