@@ -224,15 +224,17 @@ fn_mods_available(){
 fn_mods_show_available(){
 	# Reset index
 	compatiblemodslistindex=0
+	spaces=" "
 	# As long as we're within index values
 	while [ "${compatiblemodslistindex}" -lt "${#compatiblemodslist[@]}" ]; do
-		# Table outputs
-		displayedmodprettyname="$(echo -e "\e[1m${compatiblemodslist[compatiblemodslistindex]}\e[0m\;" | column -t -s "\;" -c "${modprettynamemaxlengh}")"
-		displayedmodcommand="$(echo -e "\e[36m${compatiblemodslist[compatiblemodslistindex+1]}\e[0m\;" | column -t -s "\;" -c "${modcommandmaxlengh}")"
-		displayeddmodfilename="$(echo -e "${compatiblemodslist[compatiblemodslistindex+2]}\;" | column -t -s "\;" -c "${modfilenamemaxlengh}")"
-		displayedmodsite="$(echo -e "${compatiblemodslist[compatiblemodslistindex+3]}\;" | column -t -s "\;" -c "${modcommandmaxlengh}")"
-		# User output, one line = one mod
-		echo "${displayedmodprettyname} | ${displayedmodcommand} | ${displayeddmodfilename} | ${displayedmodsite}"
+		# Pretty Name ${modprettynamemaxlengh}
+		echo -e "\e[1m${compatiblemodslist[compatiblemodslistindex]}\e[0m${spaces:$(($modprettynamemaxlengh-${#compatiblemodslist[compatiblemodslistindex]}))} |"
+		# Command ${modcommandmaxlengh}
+		echo -en "\e[36m${compatiblemodslist[compatiblemodslistindex+1]}\e[0m |"
+		# File Name ${modfilenamemaxlengh}
+		echo -en "${compatiblemodslist[compatiblemodslistindex+2]} |"
+		# Website ${modsitemaxlengh}
+		echo -en "${compatiblemodslist[compatiblemodslistindex+3]} |"
 		# Increment the amount of values we just displayed
 		let "compatiblemodslistindex+=4"
 	done
