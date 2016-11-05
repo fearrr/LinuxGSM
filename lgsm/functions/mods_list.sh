@@ -44,7 +44,7 @@ fn_mods_info(){
 	mod_info_ulx=( MOD ulx "ULX" "https://codeload.github.com/TeamUlysses/ulx/zip/master" ulx-master.zip "${systemdir}/addons" "NA" "Garry's Mod;" "NA" "http://ulyssesmod.net/" )
 	mod_info_utime=( MOD utime "UTime" "https://github.com/TeamUlysses/utime/archive/master.zip" utime-master.zip "${systemdir}/addons" "NA" "Garry's Mod;" "NA" "http://ulyssesmod.net/" )
 	mod_info_uclip=( MOD uclip "UClib" "https://github.com/TeamUlysses/uclip/archive/master.zip" uclip-master.zip "${systemdir}/addons" "NA" "Garry's Mod;" "NA" "http://ulyssesmod.net/" )
-	mod_info_acf=( MOD acf "Armoured Combat Framework" "https://github.com/nrlulz/ACF/archive/master.zip" acf-master.zip "${systemdir}/addons" "NA" "Garry's Mod;" "NA" "http://ulyssesmod.net/" )
+	mod_info_acf=( MOD acf "Armoured Combat Framework" "https://github.com/nrlulz/ACF/archive/master.zip" acf-master.zip "${systemdir}/addons" "NA" "Garry's Mod;" "NA" "https://github.com/nrlulz/ACF" )
 	# Oxidemod
 	mod_info_rustoxide=( MOD rustoxide "Oxide for Rust" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-Rust.zip" Oxide-Rust_Linux.zip "${systemdir}" "NA" "Rust;" "NA" "http://oxidemod.org/downloads/oxide-for-rust.1659/" )
 	mod_info_hwoxide=( MOD hwoxide "Oxide for Hurtworld" "https://raw.githubusercontent.com/OxideMod/Snapshots/master/Oxide-Hurtworld.zip" Oxide-Hurtworld_Linux.zip "${systemdir}" "NA" "Hurtworld;" "NA" "http://oxidemod.org/downloads/oxide-for-hurtworld.1332/" )
@@ -215,11 +215,9 @@ fn_mods_available(){
 fn_mods_show_available(){
 	compatiblemodslistindex=0
 	while [ "${compatiblemodslistindex}" -lt "${#compatiblemodslist[@]}" ]; do
-		echo "${compatiblemodslist[compatiblemodslistindex]} | Author Website: ${compatiblemodslist[compatiblemodslistindex+1]}"
-		let "compatiblemodslistindex+=2"
-		echo "File: ${compatiblemodslist[compatiblemodslistindex]}"
-		let "compatiblemodslistindex++"
-		echo "Command: ${compatiblemodslist[compatiblemodslistindex]}"
+		echo -e "\e[1m${compatiblemodslist[compatiblemodslistindex]}\e[0m | ${compatiblemodslist[compatiblemodslistindex+1]} | ${compatiblemodslist[compatiblemodslistindex+2]}"
+		let "compatiblemodslistindex+=3"
+		echo -e "Install Command: \e[1m$${compatiblemodslist[compatiblemodslistindex]}\e[0m"
 		let "compatiblemodslistindex++"
 		echo ""
 	done

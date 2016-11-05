@@ -23,9 +23,8 @@ fn_mods_install_init(){
 			echo "Available mods:"
 			# Display available mods from mods_list.sh
 			fn_mods_show_available	
-			echo "(input exit to abort)"
 			echo ""
-			echo "Enter the mod you wish to install:"
+			echo "Enter the command to install the desired mod (or exit to abort):"
 			read -r currentmod
 			# Exit if user says exit or abort
 			if [ "${currentmod}" == "exit" ]||[ "${currentmod}" == "abort" ]; then
