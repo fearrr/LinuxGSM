@@ -1,59 +1,64 @@
-<h1>Linux Game Server Managers_</h1>
-<a href="https://gameservermanagers.com"><img src="https://github.com/GameServerManagers/LinuxGSM/blob/master/images/logo/lgsm-full-light.png" alt="linux Game Server Managers" width="600" /></a>
+<h1>Менеджер Игровых Серверов для Linux (RUS)</h1>
+<a href="https://gameservermanagers.com">
+	<img src="https://github.com/GameServerManagers/LinuxGSM/blob/master/images/logo/lgsm-full-light.png" alt="linux Game Server Managers" width="600" />
+</a>
 
 [![Build Status](https://travis-ci.org/GameServerManagers/LinuxGSM.svg?branch=master)](https://travis-ci.org/GameServerManagers/LinuxGSM)
 [![Under Development](https://badge.waffle.io/GameServerManagers/LinuxGSM.svg?label=Under%20Development&title=Under%20Development)](http://waffle.io/GameServerManagers/LinuxGSM)
 
-The Linux Game Server Managers are command line tools for quick, simple deployment and management of various dedicated game servers and voice alert servers.
+Менеджер Игровых Серверов для Linux (Linux Game Server Managers) утилита для командной строки предназначенная для быстрого, простого развертывания и управления различными выделенными игровыми серверами и серверами голосовых чатов.
 
-<h2>Hassle-Free Dedicated Servers</h2>
-Game servers traditionally are not easy to manage yourself. Admins often have to spend hours just messing around trying to get their server working. LGSM is designed to be a simple as possible allowing Admins to spend less time on management and more time on the fun stuff.
+<h2>Выделенные сервера без проблем!</h2>
+Игровые серверы традиционно не имеют легкого и понятного интерфейса для управления. Администраторы довольно часто тратят кучу времени, для того чтобы запустить и заставить нормально работать сервер. LGSM разработан для простого на сколько это возможно, позволяя администраторам тратить меньше времени на управление и больше времени на другие более приятные моменты.
 
-<h2>Main features</h2>
+<h2>Основные возможности</h2>
 <ul>
-	<li>Backup</li>
-	<li>Console</li>
-	<li>Details</li>
-	<li>Installer (SteamCMD)</li>
-	<li>Monitor</li>
-	<li>Alerts (Email, Pushbullet)</li>
-	<li>Update (SteamCMD)</li>
-	<li>Start/Stop/Restart server</li>
+	<li>Бэкап</li>
+	<li>Консоль</li>
+	<li>Подробности</li>
+	<li>Установщик (SteamCMD)</li>
+	<li>Мониторинг</li>
+	<li>Уведомления (Email, SMS)</li>
+	<li>Обновление (SteamCMD)</li>
+	<li>Запуск/Остановка/Рестарт</li>
 </ul>
-<h2>Compatibility</h2>
-The Linux Game Server Managers are tested to work on the following Linux distros.
+<h2>Совместимость</h2>
+LGSM протестирована и полностью функционирует на следующих linux-дистрибутивах:
 <ul>
-	<li>Debian based (Ubuntu, Mint etc.).</li>
-	<li>Redhat based (CentOS, Fedora etc.).</li>
+	<li>Основанные на Debian (Ubuntu, Mint и т.п.).</li>
+	<li>Основанные на Redhat (CentOS, Fedora и т.п.).</li>
 </ul>
-Other distros are likely to work but are not fully tested.
-<h3>Specific Requirements</h3>
+Другие дистрибутивы, вероятно, также будут работать, но не были полностью протестированы.
+
+<h3>Особые требования</h3>
 <ul>
-	<li><a href="https://github.com/GameServerManagers/LinuxGSM/wiki/Glibc">GLIBC</a> >= 2.15 recommended [<a href="https://github.com/GameServerManagers/LinuxGSM/wiki/Glibc#server-requirements">specific requirements</a>].</li>
-	<li><a href="https://github.com/GameServerManagers/LinuxGSM/wiki/Tmux">Tmux</a> >= 1.6 recommended (Avoid Tmux 1.8).</li>
+	<li><a href="https://github.com/GameServerManagers/LinuxGSM/wiki/Glibc">GLIBC</a> >= 2.15 рекомендуется [<a href="https://github.com/GameServerManagers/LinuxGSM/wiki/Glibc#server-requirements">specific requirements</a>].</li>
+	<li><a href="https://github.com/GameServerManagers/LinuxGSM/wiki/Tmux">Tmux</a> >= 1.6 рекомендуется (Не рекомендуется Tmux 1.8).</li>
 </ul>
+
 <h2>FAQ</h2>
-All FAQ can be found here.
 
-<a href="https://github.com/GameServerManagers/LinuxGSM/wiki/FAQ">https://github.com/GameServerManagers/LinuxGSM/wiki/FAQ</a>
-<h2>Donate</h2>
-If you want to donate to the project you can via PayPal. I have had a may kind people show their support by sending me a donation. Any donations you send help cover my server costs and buy me a drink. Cheers!
+Все часто задаваемые вопросы можно найти <a href="https://github.com/GameServerManagers/LinuxGSM/wiki/FAQ">здесь (English)</a>
+
+<h2>Пожертвования</h2>
+Если вы хотите пожертвовать на проект, вы можете сделать это через систему PayPal. 
 <ul>
-<li><a href="https://gameservermanagers.com/#donate">Donate</a></li>
+<li><a href="https://gameservermanagers.com/#donate">Пожертвования тут</a></li>
 </ul>
-<h2>Useful Links</h2>
+
+<h2>Полезные ссылки</h2>
 <ul>
-	<li><a href="https://gameservermanagers.com">Homepage</a></li>
+	<li><a href="https://gameservermanagers.com">ОФициальный сайт</a></li>
 	<li><a href="https://github.com/GameServerManagers/LinuxGSM/wiki">Wiki</a></li>
-	<li><a href="https://github.com/GameServerManagers/LinuxGSM">GitHub Code</a></li>
-	<li><a href="https://github.com/GameServerManagers/LinuxGSM/issues">GitHub Issues</a></li>
+	<li><a href="https://github.com/GameServerManagers/LinuxGSM">Оригинальный репозиторий в GitHub</a></li>
+	<li><a href="https://github.com/GameServerManagers/LinuxGSM/issues">Ошибки и вопросы на GitHub (Официальный реп.)</a></li>
 	<li><a href="https://waffle.io/GameServerManagers/LinuxGSM">Waffle (Github Dashboard)</a></li>
 	<li><a href="http://alternativeto.net/software/linux-game-server-managers/">alternativeTo.net</a></li>
 </ul>
-<h2>Social</h2>
+<h2>Социальные сети</h2>
 <ul>
-	<li><a href="http://steamcommunity.com/groups/linuxgsm">Steam Group</a></li>
-	<li><a href="https://discord.gg/0i9cmXVacvXicNl7">Discord</a></li>
+	<li><a href="http://steamcommunity.com/groups/linuxgsm">Сообщество в Steam</a></li>
+	<li><a href="https://discord.gg/0i9cmXVacvXicNl7">Чат в Discord</a></li>
 	<li><a href="https://twitter.com/dangibbsuk">Twitter</a></li>
 	<li><a href="https://www.facebook.com/linuxgsm">Facebook</a></li>
 	<li><a href="https://plus.google.com/+Gameservermanagers1">Google+</a></li>
