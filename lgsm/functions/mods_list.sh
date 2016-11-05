@@ -230,11 +230,11 @@ fn_mods_show_available(){
 		# Pretty Name ${modprettynamemaxlengh}
 		echo -e "\e[1m${compatiblemodslist[compatiblemodslistindex]}\e[0m${spaces:$(($modprettynamemaxlengh-${#compatiblemodslist[compatiblemodslistindex]}))} |"
 		# Command ${modcommandmaxlengh}
-		echo -en "\e[36m${compatiblemodslist[compatiblemodslistindex+1]}\e[0m |"
+		echo -en "\e[36m${compatiblemodslist[compatiblemodslistindex+1]}\e[0m | "
 		# File Name ${modfilenamemaxlengh}
-		echo -en "${compatiblemodslist[compatiblemodslistindex+2]} |"
+		echo -en "${compatiblemodslist[compatiblemodslistindex+2]} | "
 		# Website ${modsitemaxlengh}
-		echo -en "${compatiblemodslist[compatiblemodslistindex+3]} |"
+		echo -e "${compatiblemodslist[compatiblemodslistindex+3]}"
 		# Increment the amount of values we just displayed
 		let "compatiblemodslistindex+=4"
 	done
