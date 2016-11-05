@@ -222,9 +222,18 @@ fn_mods_available(){
 
 # Output available mods in a nice way to the user
 fn_mods_show_available(){
+	# Reset index
 	compatiblemodslistindex=0
+	# As long as we're within index values
 	while [ "${compatiblemodslistindex}" -lt "${#compatiblemodslist[@]}" ]; do
-		echo "$(echo -e "\e[1m${compatiblemodslist[compatiblemodslistindex]}\e[0m\;" | column -t -s "\;" -c "${modprettynamemaxlengh}")" \| "$(echo -e "\e[36m${compatiblemodslist[compatiblemodslistindex+1]}\e[0m\;" | column -t -s "\;" -c "${modcommandmaxlengh}")" \| "$(echo -e "${compatiblemodslist[compatiblemodslistindex+2]}\;" | column -t -s "\;" -c "${modfilenamemaxlengh}")" \| "$(echo -e "${compatiblemodslist[compatiblemodslistindex+3]}\;" | column -t -s "\;" -c "${modcommandmaxlengh}")"
+		# Table outputs
+		displayedmodprettyname="$(echo -e "\e[1m${compatiblemodslist[compatiblemodslistindex]}\e[0m\;" | column -t -s "\;" -c "${modprettynamemaxlengh}")"
+		displayedmodcommand="$(echo -e "\e[36m${compatiblemodslist[compatiblemodslistindex+1]}\e[0m\;" | column -t -s "\;" -c "${modcommandmaxlengh}")"
+		displayeddmodfilename="$(echo -e "${compatiblemodslist[compatiblemodslistindex+2]}\;" | column -t -s "\;" -c "${modfilenamemaxlengh}")"
+		displayedmodsite="$(echo -e "${compatiblemodslist[compatiblemodslistindex+3]}\;" | column -t -s "\;" -c "${modcommandmaxlengh}")"
+		# User output, one line = one mod
+		echo "${displayedmodprettyname} | ${displayedmodcommand} | ${displayeddmodfilename} | ${displayedmodsite}"
+		# Increment the amount of values we just displayed
 		let "compatiblemodslistindex+=4"
 	done
 }
