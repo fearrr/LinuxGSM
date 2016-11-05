@@ -215,10 +215,8 @@ fn_mods_available(){
 fn_mods_show_available(){
 	compatiblemodslistindex=0
 	while [ "${compatiblemodslistindex}" -lt "${#compatiblemodslist[@]}" ]; do
-		echo -e "\e[1m${compatiblemodslist[compatiblemodslistindex]}\e[0m | ${compatiblemodslist[compatiblemodslistindex+1]} | ${compatiblemodslist[compatiblemodslistindex+2]}"
-		let "compatiblemodslistindex+=3"
-		echo -e "Install Command: \e[36m${compatiblemodslist[compatiblemodslistindex]}\e[0m"
-		let "compatiblemodslistindex++"
+		echo -e "\e[1m${compatiblemodslist[compatiblemodslistindex]}\e[0m | ${compatiblemodslist[compatiblemodslistindex+1]} | ${compatiblemodslist[compatiblemodslistindex+2]} | Install Command: \e[36m${compatiblemodslist[compatiblemodslistindex]}\e[0m"
+		let "compatiblemodslistindex+=4"
 		echo ""
 	done
 }
