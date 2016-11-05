@@ -224,7 +224,7 @@ fn_mods_available(){
 fn_mods_show_available(){
 	compatiblemodslistindex=0
 	while [ "${compatiblemodslistindex}" -lt "${#compatiblemodslist[@]}" ]; do
-		echo "$(echo -e "\e[1m${compatiblemodslist[compatiblemodslistindex]}\e[0m | Install Command: \e[36m${compatiblemodslist[compatiblemodslistindex+3]}\e[0m | ${compatiblemodslist[compatiblemodslistindex+1]} | ${compatiblemodslist[compatiblemodslistindex+2]}" | column -t -s "|" -c "$modprettynamemaxlengh") )"
+		echo "$(echo -e "\e[1m${compatiblemodslist[compatiblemodslistindex]}\e[0m ;| Install Command: \e[36m${compatiblemodslist[compatiblemodslistindex+3]}\e[0m ;| ${compatiblemodslist[compatiblemodslistindex+1]} ;| ${compatiblemodslist[compatiblemodslistindex+2]}" ;| column -t -s ";" -c "${modprettynamemaxlengh}")"
 		let "compatiblemodslistindex+=4"
 	done
 }
