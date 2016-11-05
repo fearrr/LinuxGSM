@@ -212,9 +212,9 @@ fn_mods_available(){
 				availablemodscommands+=( "${modcommand}" )
 				# Find max lenghs for user output to be put into nice regular tables
 				modprettynamemaxlengh=$((${#modprettyname}>${modprettynamemaxlengh}?${#modprettyname}:${modprettynamemaxlengh}))
-				modcommandmaxlengh=$((${#modprettyname}>${modcommandmaxlengh}?${#modprettyname}:${modcommandmaxlengh}))
-				modfilenamemaxlengh=$((${#modprettyname}>${modfilenamemaxlengh}?${#modprettyname}:${modfilenamemaxlengh}))
-				modsitemaxlengh=$((${#modprettyname}>${modsitemaxlengh}?${#modprettyname}:${modsitemaxlengh}))
+				modcommandmaxlengh=$((${#modcommand}>${modcommandmaxlengh}?${#modcommand}:${modcommandmaxlengh}))
+				modfilenamemaxlengh=$((${#modfilename}>${modfilenamemaxlengh}?${#modfilename}:${modfilenamemaxlengh}))
+				modsitemaxlengh=$((${#modsite}>${modsitemaxlengh}?${#modsite}:${modsitemaxlengh}))
 			fi
 		fi
 	done
